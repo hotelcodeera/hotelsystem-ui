@@ -34,6 +34,11 @@ export interface ExamListResponse {
   updated?: string;
 }
 
+export interface UnRegisteredStudents {
+  userId: string;
+  userName: string;
+}
+
 export interface StudentGrades {
   subject: string;
   grade: string;
@@ -182,9 +187,25 @@ export const MOCK_EXAMS: ExamListResponse[] = [
   },
 ];
 
+export const MOCK_UNREGISTERED_USERS: UnRegisteredStudents[] = [
+  {
+    userId: 'WEAFHBWABFWAHEBF',
+    userName: 'ewafewafewaf',
+  },
+  {
+    userId: 'waefafwaef',
+    userName: 'awefawef',
+  },
+];
+
 export interface CreateExamRequest {
   name: string;
   description: string;
+}
+
+export interface RegisterStudentRequest {
+  examId: string;
+  userId: string;
 }
 
 export const MOCK_JWT =

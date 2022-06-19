@@ -6,6 +6,7 @@ import { AngularMaterialModule } from 'src/app/angular-material/angular-material
 import { AddExamComponent } from './add-exam/add-exam.component';
 import { ExamDetailsComponent } from './exam-details/exam-details.component';
 import { ProfessorDashboardComponent } from './professor-dashboard/professor-dashboard.component';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProfessorDashboardComponent, ExamDetailsComponent, AddExamComponent],
+  declarations: [ProfessorDashboardComponent, ExamDetailsComponent, AddExamComponent, AddStudentComponent],
   imports: [CommonModule, AngularMaterialModule, RouterModule.forChild(routes), ReactiveFormsModule, FormsModule],
 })
 export class ProfessorModule {}

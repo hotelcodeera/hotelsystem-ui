@@ -1,6 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,7 +10,8 @@ import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
 import { delay, map, startWith } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ExamService } from 'src/app/services/exam.service';
-import { StudentRegistrationResponse, SUBJECTS_COUNT } from 'src/models/user.model';
+import { CANCEL_STATUS, StudentRegistrationResponse, SUBJECTS_COUNT } from 'src/models/user.model';
+import { AddStudentComponent } from '../add-student/add-student.component';
 
 const ELEMENT_DATA: StudentRegistrationResponse[] = [];
 
@@ -42,6 +44,7 @@ export class ExamDetailsComponent implements OnInit {
     private dataService: ExamService,
     public httpClient: HttpClient,
     private authenticationService: AuthenticationService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +62,23 @@ export class ExamDetailsComponent implements OnInit {
 
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
+  }
+
+  registerStudent() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.height = '300px';
+    dialogConfig.width = '300px';
+    dialogConfig.data = {
+      examId: this.examId,
+    };
+    const registerStudentDialog = this.dialog.open(AddStudentComponent, dialogConfig);
+    registerStudentDialog.afterClosed().subscribe(val => {
+      if (val.status === CANCEL_STATUS) {
+        return;
+      }
+      this.refreshTable();
+      this.exampleDatabase.dataChange.next([...this.exampleDatabase.dataChange.value, val.data]);
+    });
   }
 
   public loadData() {

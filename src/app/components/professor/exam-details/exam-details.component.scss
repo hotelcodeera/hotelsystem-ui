@@ -6,6 +6,14 @@
   padding: 50px;
   box-shadow: none;
   background-color: white;
+
+  .register-student-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 20px;
+  }
 }
 .mat-table {
   mat-header-cell {

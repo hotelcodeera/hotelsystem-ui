@@ -7,7 +7,10 @@ import {
   ExamListResponse,
   MOCK_EXAMS,
   MOCK_EXAM_REGISTRATION,
+  MOCK_UNREGISTERED_USERS,
+  RegisterStudentRequest,
   StudentRegistrationResponse,
+  UnRegisteredStudents,
 } from 'src/models/user.model';
 import { AuthenticationService } from './authentication.service';
 
@@ -97,6 +100,49 @@ export class ExamService {
             userId: this.authenticationService.getUserDetails()._id,
             created: new Date().toISOString(),
             updated: new Date().toISOString(),
+          };
+        }),
+        catchError(err => {
+          return throwError(() => console.log(err));
+        }),
+      );
+  }
+
+  fetchUnRegisteredUsers(examId: string) {
+    return this.http
+      .get<UnRegisteredStudents[]>(`https://jsonplaceholder.typicode.com/posts`, {
+        headers: this.authenticationService.getHeaders(),
+      })
+      .pipe(
+        map(res => MOCK_UNREGISTERED_USERS),
+        catchError(err => {
+          return throwError(() => console.log(err));
+        }),
+      );
+  }
+
+  registerStudentForExam({ examId, userId }: RegisterStudentRequest) {
+    return this.http
+      .post<StudentRegistrationResponse>(
+        `https://jsonplaceholder.typicode.com/posts`,
+        {
+          examId,
+          userId,
+        },
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
+      .pipe(
+        map(res => {
+          return {
+            _id: 'awefhhwabefb' + new Date().toISOString(),
+            examId,
+            userId,
+            userName: 'awefaewf',
+            created: new Date().toISOString(),
+            updated: new Date().toISOString(),
+            studentGrades: [],
           };
         }),
         catchError(err => {
