@@ -7,6 +7,8 @@ import { AddExamComponent } from './add-exam/add-exam.component';
 import { ExamDetailsComponent } from './exam-details/exam-details.component';
 import { ProfessorDashboardComponent } from './professor-dashboard/professor-dashboard.component';
 import { AddStudentComponent } from './add-student/add-student.component';
+import { GradeStudentComponent } from './grade-student/grade-student.component';
+import { UnregisterStudentComponent } from './unregister-student/unregister-student.component';
 
 const routes: Routes = [
   {
@@ -20,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProfessorDashboardComponent, ExamDetailsComponent, AddExamComponent, AddStudentComponent],
+  declarations: [ProfessorDashboardComponent, ExamDetailsComponent, AddExamComponent, AddStudentComponent, GradeStudentComponent, UnregisterStudentComponent],
   imports: [CommonModule, AngularMaterialModule, RouterModule.forChild(routes), ReactiveFormsModule, FormsModule],
 })
 export class ProfessorModule {}

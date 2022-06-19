@@ -9,6 +9,7 @@ import {
   MOCK_EXAM_REGISTRATION,
   MOCK_UNREGISTERED_USERS,
   RegisterStudentRequest,
+  StudentGrade,
   StudentRegistrationResponse,
   UnRegisteredStudents,
 } from 'src/models/user.model';
@@ -144,6 +145,69 @@ export class ExamService {
             updated: new Date().toISOString(),
             studentGrades: [],
           };
+        }),
+        catchError(err => {
+          return throwError(() => console.log(err));
+        }),
+      );
+  }
+
+  gradeStudent({ maths, physics, chemistry, examId, userId, requestId }: StudentGrade) {
+    return this.http
+      .post<StudentRegistrationResponse>(
+        `https://jsonplaceholder.typicode.com/posts`,
+        {
+          maths,
+          physics,
+          chemistry,
+        },
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
+      .pipe(
+        map(res => {
+          return {
+            _id: requestId,
+            examId,
+            userId,
+            userName: 'awefaewf',
+            created: new Date().toISOString(),
+            updated: new Date().toISOString(),
+            studentGrades: [
+              {
+                subject: 'maths',
+                grade: 3,
+              },
+              {
+                subject: 'physics',
+                grade: 5,
+              },
+              {
+                subject: 'chemistry',
+                grade: 2,
+              },
+            ],
+          } as StudentRegistrationResponse;
+        }),
+        catchError(err => {
+          return throwError(() => console.log(err));
+        }),
+      );
+  }
+
+  unRegisterStudent(requestId: string) {
+    return this.http
+      .post<{ result: string }>(
+        `https://jsonplaceholder.typicode.com/posts`,
+        {},
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
+      .pipe(
+        map(res => {
+          return { status: 'SUCCESS' };
         }),
         catchError(err => {
           return throwError(() => console.log(err));

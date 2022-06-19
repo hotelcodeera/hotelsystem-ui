@@ -38,10 +38,11 @@
           mat-raised-button
           color="primary"
           [disabled]="row.studentGrades && row.studentGrades.length === subjectCount"
+          (click)="gradeStudent(row.userId, row._id)"
         >
           Grade
         </button>
-        <button mat-raised-button color="warn">Delete</button>
+        <button mat-raised-button color="warn" (click)="unRegisterStudent(row._id)">Delete</button>
       </mat-cell>
     </ng-container>
 

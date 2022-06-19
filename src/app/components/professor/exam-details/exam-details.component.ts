@@ -12,6 +12,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ExamService } from 'src/app/services/exam.service';
 import { CANCEL_STATUS, StudentRegistrationResponse, SUBJECTS_COUNT } from 'src/models/user.model';
 import { AddStudentComponent } from '../add-student/add-student.component';
+import { GradeStudentComponent } from '../grade-student/grade-student.component';
+import { UnregisterStudentComponent } from '../unregister-student/unregister-student.component';
 
 const ELEMENT_DATA: StudentRegistrationResponse[] = [];
 
@@ -76,8 +78,49 @@ export class ExamDetailsComponent implements OnInit {
       if (val.status === CANCEL_STATUS) {
         return;
       }
-      this.refreshTable();
       this.exampleDatabase.dataChange.next([...this.exampleDatabase.dataChange.value, val.data]);
+      this.refreshTable();
+    });
+  }
+
+  gradeStudent(userId: string, reqId: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.height = '400px';
+    dialogConfig.width = '300px';
+    dialogConfig.data = {
+      examId: this.examId,
+      userId,
+      reqId,
+    };
+    const registerStudentDialog = this.dialog.open(GradeStudentComponent, dialogConfig);
+    registerStudentDialog.afterClosed().subscribe(val => {
+      if (val.status === CANCEL_STATUS) {
+        return;
+      }
+      const data = this.exampleDatabase.dataChange.value;
+      const dataIndex = data.findIndex(ele => ele._id === reqId);
+      data[dataIndex] = val.data;
+      this.exampleDatabase.dataChange.next(data);
+      this.refreshTable();
+    });
+  }
+
+  unRegisterStudent(reqId: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.height = '220px';
+    dialogConfig.width = '350px';
+    dialogConfig.data = {
+      reqId,
+    };
+    const registerStudentDialog = this.dialog.open(UnregisterStudentComponent, dialogConfig);
+    registerStudentDialog.afterClosed().subscribe(val => {
+      if (val.status === CANCEL_STATUS) {
+        return;
+      }
+      const data = this.exampleDatabase.dataChange.value;
+      const filteredData = data.filter(ele => ele._id !== reqId);
+      this.exampleDatabase.dataChange.next(filteredData);
+      this.refreshTable();
     });
   }
 

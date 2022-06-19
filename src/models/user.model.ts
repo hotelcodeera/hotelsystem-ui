@@ -41,7 +41,7 @@ export interface UnRegisteredStudents {
 
 export interface StudentGrades {
   subject: string;
-  grade: string;
+  grade: number;
 }
 
 export interface StudentRegistration {
@@ -90,15 +90,15 @@ export const MOCK_EXAM_REGISTRATION: StudentRegistrationResponse[] = [
     studentGrades: [
       {
         subject: 'PHYSICS',
-        grade: '3',
+        grade: 3,
       },
       {
         subject: 'MATHS',
-        grade: '2',
+        grade: 2,
       },
       {
         subject: 'CHEMISTRY',
-        grade: '4',
+        grade: 4,
       },
     ],
   },
@@ -112,15 +112,15 @@ export const MOCK_EXAM_REGISTRATION: StudentRegistrationResponse[] = [
     studentGrades: [
       {
         subject: 'PHYSICS',
-        grade: '2',
+        grade: 2,
       },
       {
         subject: 'MATHS',
-        grade: '1',
+        grade: 1,
       },
       {
         subject: 'CHEMISTRY',
-        grade: '4',
+        grade: 4,
       },
     ],
   },
@@ -206,6 +206,15 @@ export interface CreateExamRequest {
 export interface RegisterStudentRequest {
   examId: string;
   userId: string;
+}
+
+export interface StudentGrade {
+  maths: number;
+  physics: number;
+  chemistry: number;
+  examId: string;
+  userId: string;
+  requestId: string;
 }
 
 export const MOCK_JWT =
