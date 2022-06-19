@@ -26,6 +26,10 @@ export class AddStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.examService.fetchUnRegisteredUsers(this.dataInfo.examId).subscribe(ele => {
+      if (!ele.length) {
+        this.fetchingUsers = false;
+        return;
+      }
       this.unRegisteredUsers = ele.map(res => {
         return { value: res.userId, name: res.userName };
       });
