@@ -38,6 +38,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/student/dashboard']);
           return;
         }
+        if (userDetails.userType === UserType.Admin) {
+          this.router.navigate(['/admin/dashboard']);
+          return;
+        }
       },
       err => {
         this.loading = false;

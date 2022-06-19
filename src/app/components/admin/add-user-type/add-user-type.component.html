@@ -1,0 +1,47 @@
+<h2 mat-dialog-title style="text-align: center">Create {{ dataInfo.userType | lowercase }}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form">
+    <div class="add-exam-request-form">
+      <div class="form-field-1">
+        <mat-form-field>
+          <mat-label>Enter UserName</mat-label>
+          <input matInput formControlName="username" required />
+        </mat-form-field>
+      </div>
+      <div class="form-field-1">
+        <mat-form-field>
+          <mat-label>Enter FirstName</mat-label>
+          <input matInput formControlName="firstName" />
+        </mat-form-field>
+      </div>
+      <div class="form-field-1">
+        <mat-form-field>
+          <mat-label>Enter LastName</mat-label>
+          <input matInput formControlName="lastName" />
+        </mat-form-field>
+      </div>
+      <div class="form-field-1">
+        <mat-form-field>
+          <mat-label>Enter Email</mat-label>
+          <input matInput formControlName="email" required />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="add-exam-actions">
+    <button mat-raised-button mat-dialog-close color="warn" (click)="cancel()" [disabled]="isLoading">Cancel</button>
+    <button
+      mat-raised-button
+      [disabled]="!form.valid.valueOf() || isLoading"
+      color="primary"
+      (click)="createUser()"
+      cdkFocusInitial
+    >
+      Register
+    </button>
+  </div>
+</mat-dialog-actions>

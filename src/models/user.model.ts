@@ -16,6 +16,14 @@ export enum UserType {
   Professor = 'PROFESSOR',
 }
 
+export interface CreateUserRequest {
+  username: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  userType: UserType;
+}
+
 export interface Exam {
   _id: string;
   name: string;
@@ -218,7 +226,7 @@ export interface StudentGrade {
 }
 
 export const MOCK_JWT =
-  'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJkdW1teSIsImxhc3ROYW1lIjoiZHVtbXkiLCJfaWQiOiJJc3N1ZXJld2Fmd2ZlYWZ3IiwidXNlclR5cGUiOiJVU0VSIiwidXNlcm5hbWUiOiJ0ZXN0c2V0In0.TYnmwN9SiBQBqQPsODELA0Y_xLuFlFxTZzgj3QQGE3Y';
+  'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJkdW1teSIsImxhc3ROYW1lIjoiZHVtbXkiLCJfaWQiOiJJc3N1ZXJld2Fmd2ZlYWZ3IiwidXNlclR5cGUiOiJBRE1JTiIsInVzZXJuYW1lIjoidGVzdHNldCJ9.asZumydISiXPF_TVLFofNbK7cri3-ApvKbzZYxeKclg';
 
 export const SUBJECTS_COUNT = 3;
 

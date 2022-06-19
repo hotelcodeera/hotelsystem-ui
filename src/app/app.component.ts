@@ -43,6 +43,16 @@ export class AppComponent {
           ];
           return;
         }
+
+        if (userDetails.userType === UserType.Admin) {
+          this.menuItems = [
+            {
+              link: '/professor/dashboard',
+              text: 'Home',
+            },
+          ];
+          return;
+        }
       }
     });
   }

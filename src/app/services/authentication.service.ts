@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
-import { ACCESS_TOKEN, LoginResponse, MOCK_JWT, User, UserType } from 'src/models/user.model';
+import { ACCESS_TOKEN, CreateUserRequest, LoginResponse, MOCK_JWT, User, UserType } from 'src/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -72,5 +72,24 @@ export class AuthenticationService {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
+  }
+
+  createUser({ userType, username, firstName, lastName, email }: CreateUserRequest) {
+    return this.http
+      .post<User>(`https://jsonplaceholder.typicode.com/posts`, {
+        email,
+        userType,
+        username,
+        firstName,
+        lastName,
+      })
+      .pipe(
+        map(res => {
+          return { result: 'success' };
+        }),
+        catchError(err => {
+          return throwError(() => console.log(err));
+        }),
+      );
   }
 }
