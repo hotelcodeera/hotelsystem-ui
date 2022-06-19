@@ -2,6 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import {
+  CreateExamRequest,
+  Exam,
   ExamListResponse,
   MOCK_EXAMS,
   MOCK_EXAM_REGISTRATION,
@@ -68,6 +70,35 @@ export class ExamService {
       })
       .pipe(
         map(res => MOCK_EXAMS),
+        catchError(err => {
+          return throwError(() => console.log(err));
+        }),
+      );
+  }
+
+  createExam({ name, description }: CreateExamRequest) {
+    return this.http
+      .post<Exam>(
+        `https://jsonplaceholder.typicode.com/posts`,
+        {
+          name,
+          description,
+        },
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
+      .pipe(
+        map(res => {
+          return {
+            _id: 'awefhhwabefb' + new Date().toISOString(),
+            name,
+            description,
+            userId: this.authenticationService.getUserDetails()._id,
+            created: new Date().toISOString(),
+            updated: new Date().toISOString(),
+          };
+        }),
         catchError(err => {
           return throwError(() => console.log(err));
         }),

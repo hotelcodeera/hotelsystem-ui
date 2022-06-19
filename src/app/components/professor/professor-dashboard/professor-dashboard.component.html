@@ -1,6 +1,9 @@
 <div *ngIf="isLoading; else examListTemplate">Loading...</div>
 <ng-template #examListTemplate>
   <div class="user-dasboard-container">
+    <div class="create-exam-container">
+      <button mat-raised-button color="primary" (click)="createExam()">Create Exam</button>
+    </div>
     <div class="course-container" *ngFor="let exam of examsList">
       <mat-card class="course-detail">
         <mat-card-title>{{ exam.name }}</mat-card-title>

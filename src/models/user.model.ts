@@ -182,7 +182,14 @@ export const MOCK_EXAMS: ExamListResponse[] = [
   },
 ];
 
+export interface CreateExamRequest {
+  name: string;
+  description: string;
+}
+
 export const MOCK_JWT =
   'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJkdW1teSIsImxhc3ROYW1lIjoiZHVtbXkiLCJfaWQiOiJJc3N1ZXJld2Fmd2ZlYWZ3IiwidXNlclR5cGUiOiJQUk9GRVNTT1IiLCJ1c2VybmFtZSI6InRlc3RzZXQifQ.6MmA_03Wx9mgaVmcfISG67YMl10xtu_EHK6mtr6q4rQ';
 
 export const SUBJECTS_COUNT = 3;
+
+export const CANCEL_STATUS = 'CANCEL';

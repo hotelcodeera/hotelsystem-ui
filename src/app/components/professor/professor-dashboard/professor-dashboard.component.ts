@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ExamService } from 'src/app/services/exam.service';
-import { ExamListResponse, UserType } from 'src/models/user.model';
+import { CANCEL_STATUS, ExamListResponse, UserType } from 'src/models/user.model';
+import { AddExamComponent } from '../add-exam/add-exam.component';
 
 @Component({
   selector: 'app-professor-dashboard',
@@ -16,6 +18,7 @@ export class ProfessorDashboardComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private router: Router,
     private examService: ExamService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -44,5 +47,22 @@ export class ProfessorDashboardComponent implements OnInit {
   viewExam(examId: string) {
     console.log(examId, 'examId');
     this.router.navigate([`professor/exam/${examId}`]);
+  }
+
+  createExam() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.height = '300px';
+    dialogConfig.width = '400px';
+    dialogConfig.data = {};
+    const addExamDialog = this.dialog.open(AddExamComponent, dialogConfig);
+    addExamDialog
+      .afterClosed()
+      .pipe()
+      .subscribe(ele => {
+        if (ele.status === CANCEL_STATUS) {
+          return;
+        }
+        this.examsList.push(ele.data);
+      });
   }
 }
