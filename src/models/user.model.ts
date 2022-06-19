@@ -218,8 +218,45 @@ export interface StudentGrade {
 }
 
 export const MOCK_JWT =
-  'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJkdW1teSIsImxhc3ROYW1lIjoiZHVtbXkiLCJfaWQiOiJJc3N1ZXJld2Fmd2ZlYWZ3IiwidXNlclR5cGUiOiJQUk9GRVNTT1IiLCJ1c2VybmFtZSI6InRlc3RzZXQifQ.6MmA_03Wx9mgaVmcfISG67YMl10xtu_EHK6mtr6q4rQ';
+  'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJkdW1teSIsImxhc3ROYW1lIjoiZHVtbXkiLCJfaWQiOiJJc3N1ZXJld2Fmd2ZlYWZ3IiwidXNlclR5cGUiOiJVU0VSIiwidXNlcm5hbWUiOiJ0ZXN0c2V0In0.TYnmwN9SiBQBqQPsODELA0Y_xLuFlFxTZzgj3QQGE3Y';
 
 export const SUBJECTS_COUNT = 3;
 
 export const CANCEL_STATUS = 'CANCEL';
+
+export interface StudentRegistrationDetailResponse {
+  _id: string;
+  name: string;
+  description: string;
+  studentGrades?: StudentGrades[];
+  isNotRegistered?: boolean;
+}
+
+export const MOCK_STUDENT_REGISTRATION: StudentRegistrationDetailResponse = {
+  _id: 'EWAFAWFEAWF',
+  name: 'ahbewfbgwaef weafj',
+  description: 'aewhf weaf wauf w fwefewafb we wef we ufw ef',
+  studentGrades: [
+    {
+      subject: 'maths',
+      grade: 2,
+    },
+    {
+      subject: 'physics',
+      grade: 3,
+    },
+    {
+      subject: 'chemistry',
+      grade: 5,
+    },
+  ],
+  isNotRegistered: true,
+};
+
+export const MOCK_STUDENT_REGISTRATION_PENDING: StudentRegistrationDetailResponse = {
+  _id: 'EWAFAWFEAWF',
+  name: 'ahbewfbgwaef weafj',
+  description: 'aewhf weaf wauf w fwefewafb we wef we ufw ef',
+  studentGrades: [],
+  isNotRegistered: false,
+};

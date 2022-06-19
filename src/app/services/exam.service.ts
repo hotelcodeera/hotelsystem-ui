@@ -7,9 +7,12 @@ import {
   ExamListResponse,
   MOCK_EXAMS,
   MOCK_EXAM_REGISTRATION,
+  MOCK_STUDENT_REGISTRATION,
+  MOCK_STUDENT_REGISTRATION_PENDING,
   MOCK_UNREGISTERED_USERS,
   RegisterStudentRequest,
   StudentGrade,
+  StudentRegistrationDetailResponse,
   StudentRegistrationResponse,
   UnRegisteredStudents,
 } from 'src/models/user.model';
@@ -209,6 +212,38 @@ export class ExamService {
         map(res => {
           return { status: 'SUCCESS' };
         }),
+        catchError(err => {
+          return throwError(() => console.log(err));
+        }),
+      );
+  }
+
+  fetchStudentRegistration(examId: string) {
+    return this.http
+      .get<StudentRegistrationDetailResponse>(`https://jsonplaceholder.typicode.com/posts`, {
+        headers: this.authenticationService.getHeaders(),
+      })
+      .pipe(
+        map(res => MOCK_STUDENT_REGISTRATION_PENDING),
+        catchError(err => {
+          return throwError(() => console.log(err));
+        }),
+      );
+  }
+
+  registerForExam(examId: string) {
+    return this.http
+      .post<StudentRegistrationResponse>(
+        `https://jsonplaceholder.typicode.com/posts`,
+        {
+          examId,
+        },
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
+      .pipe(
+        map(res => MOCK_STUDENT_REGISTRATION),
         catchError(err => {
           return throwError(() => console.log(err));
         }),

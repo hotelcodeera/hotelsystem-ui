@@ -1,0 +1,20 @@
+.student-exam-detail-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+
+  .student-grades-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .student-grades {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
