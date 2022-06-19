@@ -51,6 +51,7 @@ export interface StudentRegistration {
 export interface StudentRegistrationResponse {
   _id: string;
   userId: string;
+  userName: string;
   examId: string;
   created?: string;
   updated?: string;
@@ -73,13 +74,14 @@ export interface LoginResponse {
   data: string;
 }
 
-export const MOCK_EXAM_REGISTRATION: StudentRegistration[] = [
+export const MOCK_EXAM_REGISTRATION: StudentRegistrationResponse[] = [
   {
     _id: 'weafguehwagf weuaf',
     userId: 'awefuehwbg fwhebfh',
     examId: 'eawfh uwehfu',
     created: new Date().toISOString(),
     updated: new Date().toISOString(),
+    userName: 'waefaefwaewf',
     studentGrades: [
       {
         subject: 'PHYSICS',
@@ -101,6 +103,7 @@ export const MOCK_EXAM_REGISTRATION: StudentRegistration[] = [
     examId: 'eawfh uwehfu',
     created: new Date().toISOString(),
     updated: new Date().toISOString(),
+    userName: 'waefaefwaewf',
     studentGrades: [
       {
         subject: 'PHYSICS',
@@ -119,6 +122,7 @@ export const MOCK_EXAM_REGISTRATION: StudentRegistration[] = [
   {
     _id: 'EWAFUHAWEFAWEF',
     userId: 'awefuehwbg fwhebfh',
+    userName: 'waefaefwaewf',
     examId: 'eawfh uwehfu',
     created: new Date().toISOString(),
     updated: new Date().toISOString(),
@@ -128,6 +132,7 @@ export const MOCK_EXAM_REGISTRATION: StudentRegistration[] = [
     _id: 'EWAFUHAWEFAWEF',
     userId: 'awefuehwbg fwhebfh',
     examId: 'eawfh uwehfu',
+    userName: 'waefaefwaewf',
     created: new Date().toISOString(),
     updated: new Date().toISOString(),
     studentGrades: undefined,
@@ -179,3 +184,5 @@ export const MOCK_EXAMS: ExamListResponse[] = [
 
 export const MOCK_JWT =
   'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJkdW1teSIsImxhc3ROYW1lIjoiZHVtbXkiLCJfaWQiOiJJc3N1ZXJld2Fmd2ZlYWZ3IiwidXNlclR5cGUiOiJQUk9GRVNTT1IiLCJ1c2VybmFtZSI6InRlc3RzZXQifQ.6MmA_03Wx9mgaVmcfISG67YMl10xtu_EHK6mtr6q4rQ';
+
+export const SUBJECTS_COUNT = 3;
