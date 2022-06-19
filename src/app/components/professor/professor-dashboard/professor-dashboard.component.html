@@ -1,1 +1,17 @@
-<p>professor-dashboard works!</p>
+<div *ngIf="isLoading; else examListTemplate">Loading...</div>
+<ng-template #examListTemplate>
+  <div class="user-dasboard-container">
+    <div class="course-container" *ngFor="let exam of examsList">
+      <mat-card class="course-detail">
+        <mat-card-title>{{ exam.name }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ exam.description }}</p>
+        </mat-card-content>
+        <mat-divider inset></mat-divider>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">View</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

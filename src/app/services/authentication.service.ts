@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -64,5 +64,13 @@ export class AuthenticationService {
 
   updateLoggedIn(isLoggedIn: boolean = false) {
     this.isLoggedIn$.next(isLoggedIn);
+  }
+
+  getHeaders() {
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
   }
 }
