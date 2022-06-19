@@ -29,7 +29,6 @@ export class ProfessorDashboardComponent implements OnInit {
     }
     this.examService.fetchExams().subscribe(
       res => {
-        debugger;
         this.examsList = res;
         this.isLoading = false;
       },
@@ -40,5 +39,10 @@ export class ProfessorDashboardComponent implements OnInit {
         console.log('complete api');
       },
     );
+  }
+
+  viewExam(examId: string) {
+    console.log(examId, 'examId');
+    this.router.navigate([`professor/exam/${examId}`]);
   }
 }

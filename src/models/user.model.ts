@@ -48,6 +48,15 @@ export interface StudentRegistration {
   studentGrades?: StudentGrades[];
 }
 
+export interface StudentRegistrationResponse {
+  _id: string;
+  userId: string;
+  examId: string;
+  created?: string;
+  updated?: string;
+  studentGrades?: StudentGrades[];
+}
+
 export const ACCESS_TOKEN = 'access-token';
 
 export const MOCK_USER = {
@@ -64,7 +73,68 @@ export interface LoginResponse {
   data: string;
 }
 
-export const MOCK_EXAMS = [
+export const MOCK_EXAM_REGISTRATION: StudentRegistration[] = [
+  {
+    _id: 'weafguehwagf weuaf',
+    userId: 'awefuehwbg fwhebfh',
+    examId: 'eawfh uwehfu',
+    created: new Date().toISOString(),
+    updated: new Date().toISOString(),
+    studentGrades: [
+      {
+        subject: 'PHYSICS',
+        grade: '3',
+      },
+      {
+        subject: 'MATHS',
+        grade: '2',
+      },
+      {
+        subject: 'CHEMISTRY',
+        grade: '4',
+      },
+    ],
+  },
+  {
+    _id: 'weafgGFBDHSTRGERGf',
+    userId: 'awefuehwbg fwhebfh',
+    examId: 'eawfh uwehfu',
+    created: new Date().toISOString(),
+    updated: new Date().toISOString(),
+    studentGrades: [
+      {
+        subject: 'PHYSICS',
+        grade: '2',
+      },
+      {
+        subject: 'MATHS',
+        grade: '1',
+      },
+      {
+        subject: 'CHEMISTRY',
+        grade: '4',
+      },
+    ],
+  },
+  {
+    _id: 'EWAFUHAWEFAWEF',
+    userId: 'awefuehwbg fwhebfh',
+    examId: 'eawfh uwehfu',
+    created: new Date().toISOString(),
+    updated: new Date().toISOString(),
+    studentGrades: [],
+  },
+  {
+    _id: 'EWAFUHAWEFAWEF',
+    userId: 'awefuehwbg fwhebfh',
+    examId: 'eawfh uwehfu',
+    created: new Date().toISOString(),
+    updated: new Date().toISOString(),
+    studentGrades: undefined,
+  },
+];
+
+export const MOCK_EXAMS: ExamListResponse[] = [
   {
     _id: 'awefaewfwaef',
     name: 'maths',
