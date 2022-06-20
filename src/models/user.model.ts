@@ -83,8 +83,8 @@ export const MOCK_USER = {
 };
 
 export interface LoginResponse {
-  result: string;
-  data: string;
+  success: boolean;
+  token: string;
 }
 
 export const MOCK_EXAM_REGISTRATION: StudentRegistrationResponse[] = [
@@ -226,7 +226,7 @@ export interface StudentGrade {
 }
 
 export const MOCK_JWT =
-  'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJkdW1teSIsImxhc3ROYW1lIjoiZHVtbXkiLCJfaWQiOiJJc3N1ZXJld2Fmd2ZlYWZ3IiwidXNlclR5cGUiOiJBRE1JTiIsInVzZXJuYW1lIjoidGVzdHNldCJ9.asZumydISiXPF_TVLFofNbK7cri3-ApvKbzZYxeKclg';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmIwMDA0N2ZlYmFiMjc0Njk2ZjFkNzMiLCJpZCI6IjYyYjAwMDQ3ZmViYWIyNzQ2OTZmMWQ3MyIsInVzZXJUeXBlIjoiUFJPRkVTU09SIiwidXNlcm5hbWUiOiJ0ZXN0cHJvZmVzc29yIiwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoicHJvZmVzc29yIiwiZW1haWwiOiJ0ZXN0cHJvZmVzc29yQGdtYWlsLmNvbSIsImlhdCI6MTY1NTcwNTUxMiwiZXhwIjoxNjU1NzA4NTEyfQ.-QstxJ_rqBKi2KhpAUtDT-6y6Dv4EVgeZMQ_hW38x68';
 
 export const SUBJECTS_COUNT = 3;
 

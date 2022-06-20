@@ -124,7 +124,7 @@ export class ExamService {
         }),
       );
   }
-
+  //this API is for Professor
   registerStudentForExam({ examId, userId }: RegisterStudentRequest) {
     return this.http
       .post<StudentRegistrationResponse>(
@@ -191,7 +191,7 @@ export class ExamService {
                 grade: 2,
               },
             ],
-          } as StudentRegistrationResponse;
+          } as StudentRegistrationResponse; // cHange this res[onse] schema
         }),
         catchError(err => {
           return throwError(() => console.log(err));
@@ -217,7 +217,7 @@ export class ExamService {
         }),
       );
   }
-
+  //this API is for student
   fetchStudentRegistration(examId: string) {
     return this.http
       .get<StudentRegistrationDetailResponse>(`https://jsonplaceholder.typicode.com/posts`, {
@@ -230,7 +230,7 @@ export class ExamService {
         }),
       );
   }
-
+  //this api is for student registration
   registerForExam(examId: string) {
     return this.http
       .post<StudentRegistrationResponse>(

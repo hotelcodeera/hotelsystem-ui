@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://dtnohp2fw8.execute-api.us-east-1.amazonaws.com/dev/',
+  apiURL: 'http://localhost:3000/',
 };
 
 /*

@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
-import { ACCESS_TOKEN, CreateUserRequest, LoginResponse, MOCK_JWT, User, UserType } from 'src/models/user.model';
+import { environment } from 'src/environments/environment';
+import { ACCESS_TOKEN, CreateUserRequest, LoginResponse, User, UserType } from 'src/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,8 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem(ACCESS_TOKEN);
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    return !!token && !this.jwtHelper.isTokenExpired(token);
   }
 
   logout() {
@@ -48,16 +50,14 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
     return this.http
-      .post<LoginResponse>(`https://jsonplaceholder.typicode.com/posts`, {
+      .post<LoginResponse>(`${environment.apiURL}api/v1/auth/login`, {
         email,
         password,
       })
       .pipe(
-        map(res => {
-          return { result: 'success', data: MOCK_JWT };
-        }),
+        map(res => res || ''),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }
@@ -76,19 +76,25 @@ export class AuthenticationService {
 
   createUser({ userType, username, firstName, lastName, email }: CreateUserRequest) {
     return this.http
-      .post<User>(`https://jsonplaceholder.typicode.com/posts`, {
-        email,
-        userType,
-        username,
-        firstName,
-        lastName,
-      })
+      .post<User>(
+        `${environment.apiURL}api/v1/admin/addUser`,
+        {
+          email,
+          userType,
+          username,
+          firstName,
+          lastName,
+        },
+        {
+          headers: this.getHeaders(),
+        },
+      )
       .pipe(
         map(res => {
-          return { result: 'success' };
+          return { success: true };
         }),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }

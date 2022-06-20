@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { SnackbarWrapperService } from 'src/app/services/snackbar-wrapper.service';
 import { LoginResponse, UserType } from 'src/models/user.model';
 
 @Component({
@@ -17,7 +18,11 @@ export class LoginComponent implements OnInit {
   hide = true;
   loading = false;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {}
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private snackBar: SnackbarWrapperService,
+  ) {}
 
   ngOnInit(): void {
     this.authenticationService.logout();
@@ -28,7 +33,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.form.get('email')?.value, this.form.get('password')?.value).subscribe(
       (data: LoginResponse) => {
         console.log(data);
-        this.authenticationService.setUserDetails(data.data);
+        this.authenticationService.setUserDetails(data.token);
         const userDetails = this.authenticationService.getUserDetails();
         if (userDetails.userType === UserType.Professor) {
           this.router.navigate(['/professor/dashboard']);
@@ -46,6 +51,7 @@ export class LoginComponent implements OnInit {
       err => {
         this.loading = false;
         console.log(err);
+        this.snackBar.openSnackBar(err.error.error, '');
       },
       () => {
         console.log('complete');
