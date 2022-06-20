@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ExamService } from 'src/app/services/exam.service';
+import { SnackbarWrapperService } from 'src/app/services/snackbar-wrapper.service';
 import { CANCEL_STATUS, ExamListResponse, UserType } from 'src/models/user.model';
 import { AddExamComponent } from '../add-exam/add-exam.component';
 
@@ -19,6 +20,7 @@ export class ProfessorDashboardComponent implements OnInit {
     private router: Router,
     private examService: ExamService,
     private dialog: MatDialog,
+    private snackBar: SnackbarWrapperService,
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class ProfessorDashboardComponent implements OnInit {
       },
       err => {
         console.log(err);
+        this.snackBar.openSnackBar(err?.error?.error || 'Unable to fetch Exams', '');
       },
       () => {
         console.log('complete api');

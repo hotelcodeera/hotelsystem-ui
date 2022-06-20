@@ -70,6 +70,14 @@ export interface StudentRegistrationResponse {
   updated?: string;
   studentGrades?: StudentGrades[];
 }
+export interface StudentRegistrationResponseWithUser {
+  _id: string;
+  examId: string;
+  created?: string;
+  updated?: string;
+  studentGrades?: StudentGrades[];
+  userDetails: User;
+}
 
 export const ACCESS_TOKEN = 'access-token';
 

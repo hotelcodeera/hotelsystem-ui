@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ExamService } from 'src/app/services/exam.service';
+import { SnackbarWrapperService } from 'src/app/services/snackbar-wrapper.service';
 import { CANCEL_STATUS } from 'src/models/user.model';
 
 @Component({
@@ -20,6 +21,7 @@ export class AddExamComponent implements OnInit {
     public dialogRef: MatDialogRef<AddExamComponent>,
     @Inject(MAT_DIALOG_DATA) public dataInfo: MatDialogConfig<any>,
     private examService: ExamService,
+    private snackBar: SnackbarWrapperService,
   ) {}
 
   ngOnInit(): void {}
@@ -28,10 +30,17 @@ export class AddExamComponent implements OnInit {
     this.isLoading = true;
     this.examService
       .createExam({ name: this.form.get('name')?.value, description: this.form.get('description')?.value })
-      .subscribe(ele => {
-        this.isLoading = false;
-        this.dialogRef.close({ status: 'SUCCESS', data: ele });
-      });
+      .subscribe(
+        ele => {
+          this.isLoading = false;
+          this.dialogRef.close({ status: 'SUCCESS', data: ele });
+        },
+        err => {
+          console.log(err);
+          this.snackBar.openSnackBar(err?.error?.error || 'Unable to create exam', '');
+          this.dialogRef.close({ status: CANCEL_STATUS });
+        },
+      );
   }
 
   cancel() {

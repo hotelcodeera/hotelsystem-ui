@@ -1,19 +1,18 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import {
   CreateExamRequest,
   Exam,
   ExamListResponse,
-  MOCK_EXAMS,
-  MOCK_EXAM_REGISTRATION,
   MOCK_STUDENT_REGISTRATION,
   MOCK_STUDENT_REGISTRATION_PENDING,
-  MOCK_UNREGISTERED_USERS,
   RegisterStudentRequest,
   StudentGrade,
   StudentRegistrationDetailResponse,
   StudentRegistrationResponse,
+  StudentRegistrationResponseWithUser,
   UnRegisteredStudents,
 } from 'src/models/user.model';
 import { AuthenticationService } from './authentication.service';
@@ -51,42 +50,60 @@ export class ExamService {
   }
 
   getAllRegisteredStudents(): void {
-    this.http.get<StudentRegistrationResponse[]>('https://jsonplaceholder.typicode.com/posts').subscribe(
-      data => {
-        console.log(data);
-        console.log('examId', this._examId);
-        this.dataChange.next(MOCK_EXAM_REGISTRATION);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + ' ' + error.message);
-      },
-      () => {
-        console.log('complete get data api');
-        this.setValue(true);
-        this.retrivingData.subscribe(value => {
-          console.log(value);
-        });
-      },
-    );
+    this.http
+      .get<{ success: boolean; data: StudentRegistrationResponseWithUser[] }>(
+        `${environment.apiURL}api/v1/professor/fetchRegistrations/${this._examId}`,
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
+      .subscribe(
+        data => {
+          const updatedRes = data.data.map(ele => {
+            return {
+              _id: ele._id,
+              created: ele.created,
+              updated: ele.updated,
+              userId: ele.userDetails._id,
+              userName: ele.userDetails.username,
+              studentGrades: ele.studentGrades,
+              examId: ele.examId,
+            } as StudentRegistrationResponse;
+          });
+          console.log(data);
+          console.log('examId', this._examId);
+          this.dataChange.next(updatedRes);
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.error.error);
+        },
+        () => {
+          console.log('complete get data api');
+          this.setValue(true);
+          this.retrivingData.subscribe(value => {
+            console.log(value);
+          });
+        },
+      );
   }
 
   fetchExams() {
     return this.http
-      .get<ExamListResponse[]>('https://jsonplaceholder.typicode.com/posts', {
+      .get<{ success: boolean; data: ExamListResponse[] }>(`${environment.apiURL}api/v1/professor/getExams`, {
         headers: this.authenticationService.getHeaders(),
       })
       .pipe(
-        map(res => MOCK_EXAMS),
+        map(res => res.data),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }
 
   createExam({ name, description }: CreateExamRequest) {
     return this.http
-      .post<Exam>(
-        `https://jsonplaceholder.typicode.com/posts`,
+      .post<{ success: boolean; data: Exam }>(
+        `${environment.apiURL}api/v1/professor/addExam`,
         {
           name,
           description,
@@ -96,39 +113,33 @@ export class ExamService {
         },
       )
       .pipe(
-        map(res => {
-          return {
-            _id: 'awefhhwabefb' + new Date().toISOString(),
-            name,
-            description,
-            userId: this.authenticationService.getUserDetails()._id,
-            created: new Date().toISOString(),
-            updated: new Date().toISOString(),
-          };
-        }),
+        map(res => res.data),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }
 
   fetchUnRegisteredUsers(examId: string) {
     return this.http
-      .get<UnRegisteredStudents[]>(`https://jsonplaceholder.typicode.com/posts`, {
-        headers: this.authenticationService.getHeaders(),
-      })
+      .get<{ success: boolean; data: UnRegisteredStudents[] }>(
+        `${environment.apiURL}api/v1/professor/fetchUnRegisterStudents/${examId}`,
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
       .pipe(
-        map(res => MOCK_UNREGISTERED_USERS),
+        map(res => res.data),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }
   //this API is for Professor
   registerStudentForExam({ examId, userId }: RegisterStudentRequest) {
     return this.http
-      .post<StudentRegistrationResponse>(
-        `https://jsonplaceholder.typicode.com/posts`,
+      .post<{ success: boolean; data: StudentRegistrationResponse }>(
+        `${environment.apiURL}api/v1/professor/register`,
         {
           examId,
           userId,
@@ -138,27 +149,17 @@ export class ExamService {
         },
       )
       .pipe(
-        map(res => {
-          return {
-            _id: 'awefhhwabefb' + new Date().toISOString(),
-            examId,
-            userId,
-            userName: 'awefaewf',
-            created: new Date().toISOString(),
-            updated: new Date().toISOString(),
-            studentGrades: [],
-          };
-        }),
+        map(res => res.data),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }
 
   gradeStudent({ maths, physics, chemistry, examId, userId, requestId }: StudentGrade) {
     return this.http
-      .post<StudentRegistrationResponse>(
-        `https://jsonplaceholder.typicode.com/posts`,
+      .post<{ success: boolean; data: StudentRegistrationResponseWithUser }>(
+        `${environment.apiURL}api/v1/professor/gradeStudent/${requestId}`,
         {
           maths,
           physics,
@@ -171,30 +172,17 @@ export class ExamService {
       .pipe(
         map(res => {
           return {
-            _id: requestId,
+            _id: res.data._id,
             examId,
             userId,
-            userName: 'awefaewf',
-            created: new Date().toISOString(),
-            updated: new Date().toISOString(),
-            studentGrades: [
-              {
-                subject: 'maths',
-                grade: 3,
-              },
-              {
-                subject: 'physics',
-                grade: 5,
-              },
-              {
-                subject: 'chemistry',
-                grade: 2,
-              },
-            ],
+            userName: res.data.userDetails.username,
+            created: res.data.created,
+            updated: res.data.updated,
+            studentGrades: res.data.studentGrades,
           } as StudentRegistrationResponse; // cHange this res[onse] schema
         }),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }
@@ -202,7 +190,7 @@ export class ExamService {
   unRegisterStudent(requestId: string) {
     return this.http
       .post<{ result: string }>(
-        `https://jsonplaceholder.typicode.com/posts`,
+        `${environment.apiURL}api/v1/professor/removeRegistration/${requestId}`,
         {},
         {
           headers: this.authenticationService.getHeaders(),
@@ -213,7 +201,7 @@ export class ExamService {
           return { status: 'SUCCESS' };
         }),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }
