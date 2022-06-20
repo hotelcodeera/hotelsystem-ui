@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { ExamService } from 'src/app/services/exam.service';
+import { SnackbarWrapperService } from 'src/app/services/snackbar-wrapper.service';
 import { StudentRegistrationDetailResponse } from 'src/models/user.model';
 
 @Component({
@@ -16,7 +17,11 @@ export class StudentExamDetailsComponent implements OnInit {
   isLoading = true;
   registering = false;
 
-  constructor(private examService: ExamService, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private examService: ExamService,
+    private activatedRoute: ActivatedRoute,
+    private snackBar: SnackbarWrapperService,
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params
@@ -29,9 +34,16 @@ export class StudentExamDetailsComponent implements OnInit {
 
   registerExam() {
     this.registering = true;
-    this.examService.registerForExam(this.examDetails._id).subscribe(ele => {
-      this.examDetails = ele;
-      this.registering = false;
-    });
+    this.examService.registerForExam(this.examDetails.examId).subscribe(
+      ele => {
+        this.examDetails = ele;
+        this.registering = false;
+        this.snackBar.openSnackBar('Registerred Successfully', '');
+      },
+      err => {
+        console.log(err);
+        this.snackBar.openSnackBar(err?.error?.error || 'Unable to register exam', '');
+      },
+    );
   }
 }

@@ -6,8 +6,6 @@ import {
   CreateExamRequest,
   Exam,
   ExamListResponse,
-  MOCK_STUDENT_REGISTRATION,
-  MOCK_STUDENT_REGISTRATION_PENDING,
   RegisterStudentRequest,
   StudentGrade,
   StudentRegistrationDetailResponse,
@@ -90,6 +88,19 @@ export class ExamService {
   fetchExams() {
     return this.http
       .get<{ success: boolean; data: ExamListResponse[] }>(`${environment.apiURL}api/v1/professor/getExams`, {
+        headers: this.authenticationService.getHeaders(),
+      })
+      .pipe(
+        map(res => res.data),
+        catchError(err => {
+          return throwError(() => err);
+        }),
+      );
+  }
+
+  fetchExamsForStudent() {
+    return this.http
+      .get<{ success: boolean; data: ExamListResponse[] }>(`${environment.apiURL}api/v1/student/fetchExams`, {
         headers: this.authenticationService.getHeaders(),
       })
       .pipe(
@@ -208,30 +219,31 @@ export class ExamService {
   //this API is for student
   fetchStudentRegistration(examId: string) {
     return this.http
-      .get<StudentRegistrationDetailResponse>(`https://jsonplaceholder.typicode.com/posts`, {
-        headers: this.authenticationService.getHeaders(),
-      })
+      .get<{ success: boolean; data: StudentRegistrationDetailResponse }>(
+        `${environment.apiURL}api/v1/student/fetchRegistration/${examId}`,
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
       .pipe(
-        map(res => MOCK_STUDENT_REGISTRATION_PENDING),
+        map(res => res.data),
         catchError(err => {
-          return throwError(() => console.log(err));
+          return throwError(() => err);
         }),
       );
   }
   //this api is for student registration
   registerForExam(examId: string) {
     return this.http
-      .post<StudentRegistrationResponse>(
-        `https://jsonplaceholder.typicode.com/posts`,
-        {
-          examId,
-        },
+      .post<{ success: boolean; data: StudentRegistrationDetailResponse }>(
+        `${environment.apiURL}api/v1/student/register/${examId}`,
+        {},
         {
           headers: this.authenticationService.getHeaders(),
         },
       )
       .pipe(
-        map(res => MOCK_STUDENT_REGISTRATION),
+        map(res => res.data),
         catchError(err => {
           return throwError(() => console.log(err));
         }),

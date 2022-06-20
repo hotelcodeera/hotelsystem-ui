@@ -1,18 +1,23 @@
 <div *ngIf="isLoading; else examListTemplate">Loading...</div>
 <ng-template #examListTemplate>
   <div class="user-dasboard-container">
-    <div class="course-container" *ngFor="let exam of examsList">
-      <mat-card class="course-detail">
-        <mat-card-title>{{ exam.name }}</mat-card-title>
-        <mat-card-content>
-          <p>{{ exam.description }}</p>
-        </mat-card-content>
-        <mat-divider inset></mat-divider>
-        <mat-card-actions>
-          <div></div>
-          <button mat-raised-button color="primary" (click)="viewExam(exam._id)">View</button>
-        </mat-card-actions>
-      </mat-card>
+    <div *ngIf="!examsList?.length; else examsTemplate">
+      <h2 style="text-align: center">Exams are not created</h2>
     </div>
+    <ng-template #examsTemplate>
+      <div class="course-container" *ngFor="let exam of examsList">
+        <mat-card class="course-detail">
+          <mat-card-title>{{ exam.name }}</mat-card-title>
+          <mat-card-content>
+            <p>{{ exam.description }}</p>
+          </mat-card-content>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions>
+            <div></div>
+            <button mat-raised-button color="primary" (click)="viewExam(exam._id)">View</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-template>
   </div>
 </ng-template>

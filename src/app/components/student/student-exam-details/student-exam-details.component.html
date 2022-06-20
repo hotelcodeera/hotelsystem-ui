@@ -3,7 +3,7 @@
   <div class="student-exam-detail-container">
     <h1>{{ examDetails.name }}</h1>
     <h3>{{ examDetails.description }}</h3>
-    <div *ngIf="!examDetails.isNotRegistered; else userGradingContainer">
+    <div *ngIf="examDetails.isNotRegistered; else userGradingContainer">
       <button mat-raised-button color="primary" (click)="registerExam()">Register</button>
       <mat-progress-bar mode="indeterminate" *ngIf="registering"></mat-progress-bar>
     </div>
@@ -12,6 +12,9 @@
         class="student-grades-container"
         *ngIf="examDetails.studentGrades && examDetails.studentGrades.length; else gradingPendingContainer"
       >
+        <div style="text-align: center">
+          <h2>Grades</h2>
+        </div>
         <div class="student-grades" *ngFor="let grades of examDetails.studentGrades">
           <h4>{{ grades.subject }}</h4>
           -
