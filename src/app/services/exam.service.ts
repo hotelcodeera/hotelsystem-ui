@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {
+  API_VERSION_URL,
   CreateExamRequest,
   Exam,
   ExamListResponse,
@@ -50,7 +51,7 @@ export class ExamService {
   getAllRegisteredStudents(): void {
     this.http
       .get<{ success: boolean; data: StudentRegistrationResponseWithUser[] }>(
-        `${environment.apiURL}api/v1/professor/fetchRegistrations/${this._examId}`,
+        `${environment.apiURL}${API_VERSION_URL}/professor/fetchRegistrations/${this._examId}`,
         {
           headers: this.authenticationService.getHeaders(),
         },
@@ -87,9 +88,12 @@ export class ExamService {
 
   fetchExams() {
     return this.http
-      .get<{ success: boolean; data: ExamListResponse[] }>(`${environment.apiURL}api/v1/professor/getExams`, {
-        headers: this.authenticationService.getHeaders(),
-      })
+      .get<{ success: boolean; data: ExamListResponse[] }>(
+        `${environment.apiURL}${API_VERSION_URL}/professor/getExams`,
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
       .pipe(
         map(res => res.data),
         catchError(err => {
@@ -100,9 +104,12 @@ export class ExamService {
 
   fetchExamsForStudent() {
     return this.http
-      .get<{ success: boolean; data: ExamListResponse[] }>(`${environment.apiURL}api/v1/student/fetchExams`, {
-        headers: this.authenticationService.getHeaders(),
-      })
+      .get<{ success: boolean; data: ExamListResponse[] }>(
+        `${environment.apiURL}${API_VERSION_URL}/student/fetchExams`,
+        {
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
       .pipe(
         map(res => res.data),
         catchError(err => {
@@ -114,7 +121,7 @@ export class ExamService {
   createExam({ name, description }: CreateExamRequest) {
     return this.http
       .post<{ success: boolean; data: Exam }>(
-        `${environment.apiURL}api/v1/professor/addExam`,
+        `${environment.apiURL}${API_VERSION_URL}/professor/addExam`,
         {
           name,
           description,
@@ -134,7 +141,7 @@ export class ExamService {
   fetchUnRegisteredUsers(examId: string) {
     return this.http
       .get<{ success: boolean; data: UnRegisteredStudents[] }>(
-        `${environment.apiURL}api/v1/professor/fetchUnRegisterStudents/${examId}`,
+        `${environment.apiURL}${API_VERSION_URL}/professor/fetchUnRegisterStudents/${examId}`,
         {
           headers: this.authenticationService.getHeaders(),
         },
@@ -150,7 +157,7 @@ export class ExamService {
   registerStudentForExam({ examId, userId }: RegisterStudentRequest) {
     return this.http
       .post<{ success: boolean; data: StudentRegistrationResponse }>(
-        `${environment.apiURL}api/v1/professor/register`,
+        `${environment.apiURL}${API_VERSION_URL}/professor/register`,
         {
           examId,
           userId,
@@ -170,7 +177,7 @@ export class ExamService {
   gradeStudent({ maths, physics, chemistry, examId, userId, requestId }: StudentGrade) {
     return this.http
       .post<{ success: boolean; data: StudentRegistrationResponseWithUser }>(
-        `${environment.apiURL}api/v1/professor/gradeStudent/${requestId}`,
+        `${environment.apiURL}${API_VERSION_URL}/professor/gradeStudent/${requestId}`,
         {
           maths,
           physics,
@@ -201,7 +208,7 @@ export class ExamService {
   unRegisterStudent(requestId: string) {
     return this.http
       .post<{ result: string }>(
-        `${environment.apiURL}api/v1/professor/removeRegistration/${requestId}`,
+        `${environment.apiURL}${API_VERSION_URL}/professor/removeRegistration/${requestId}`,
         {},
         {
           headers: this.authenticationService.getHeaders(),
@@ -220,7 +227,7 @@ export class ExamService {
   fetchStudentRegistration(examId: string) {
     return this.http
       .get<{ success: boolean; data: StudentRegistrationDetailResponse }>(
-        `${environment.apiURL}api/v1/student/fetchRegistration/${examId}`,
+        `${environment.apiURL}${API_VERSION_URL}/student/fetchRegistration/${examId}`,
         {
           headers: this.authenticationService.getHeaders(),
         },
@@ -236,7 +243,7 @@ export class ExamService {
   registerForExam(examId: string) {
     return this.http
       .post<{ success: boolean; data: StudentRegistrationDetailResponse }>(
-        `${environment.apiURL}api/v1/student/register/${examId}`,
+        `${environment.apiURL}${API_VERSION_URL}/student/register/${examId}`,
         {},
         {
           headers: this.authenticationService.getHeaders(),

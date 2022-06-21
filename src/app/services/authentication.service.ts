@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ACCESS_TOKEN, CreateUserRequest, LoginResponse, User, UserType } from 'src/models/user.model';
+import { ACCESS_TOKEN, API_VERSION_URL, CreateUserRequest, LoginResponse, User, UserType } from 'src/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +50,7 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
     return this.http
-      .post<LoginResponse>(`${environment.apiURL}api/v1/auth/login`, {
+      .post<LoginResponse>(`${environment.apiURL}${API_VERSION_URL}/auth/login`, {
         email,
         password,
       })
@@ -77,7 +77,7 @@ export class AuthenticationService {
   createUser({ userType, username, firstName, lastName, email }: CreateUserRequest) {
     return this.http
       .post<User>(
-        `${environment.apiURL}api/v1/admin/addUser`,
+        `${environment.apiURL}${API_VERSION_URL}/admin/addUser`,
         {
           email,
           userType,

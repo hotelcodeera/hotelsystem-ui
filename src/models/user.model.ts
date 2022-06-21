@@ -249,31 +249,4 @@ export interface StudentRegistrationDetailResponse {
   examId: string;
 }
 
-// export const MOCK_STUDENT_REGISTRATION: StudentRegistrationDetailResponse = {
-//   _id: 'EWAFAWFEAWF',
-//   name: 'ahbewfbgwaef weafj',
-//   description: 'aewhf weaf wauf w fwefewafb we wef we ufw ef',
-//   studentGrades: [
-//     {
-//       subject: 'maths',
-//       grade: 2,
-//     },
-//     {
-//       subject: 'physics',
-//       grade: 3,
-//     },
-//     {
-//       subject: 'chemistry',
-//       grade: 5,
-//     },
-//   ],
-//   isNotRegistered: true,
-// };
-
-// export const MOCK_STUDENT_REGISTRATION_PENDING: StudentRegistrationDetailResponse = {
-//   _id: 'EWAFAWFEAWF',
-//   name: 'ahbewfbgwaef weafj',
-//   description: 'aewhf weaf wauf w fwefewafb we wef we ufw ef',
-//   studentGrades: [],
-//   isNotRegistered: false,
-// };
+export const API_VERSION_URL = 'api/v1';
