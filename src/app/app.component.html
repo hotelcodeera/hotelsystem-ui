@@ -10,7 +10,8 @@
         <ng-container *ngFor="let menu of menuItems">
           <a [routerLink]="menu.link" mat-button>{{ menu.text }}</a>
         </ng-container>
-        <a (click)="logout()" href="" mat-button *ngIf="isLoggedIn">Logout</a>
+        <!-- <a (click)="logout()" href="" mat-button *ngIf="isLoggedIn">Logout</a> -->
+        <span (click)="logout()" *ngIf="isLoggedIn" style="cursor: pointer; font-size: 14px">Logout</span>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
