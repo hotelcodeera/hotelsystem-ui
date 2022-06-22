@@ -85,7 +85,7 @@ export class ExamDetailsComponent implements OnInit {
 
   gradeStudent(userId: string, reqId: string) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.height = '400px';
+    dialogConfig.height = '250px';
     dialogConfig.width = '300px';
     dialogConfig.data = {
       examId: this.examId,

@@ -13,8 +13,8 @@ import { CANCEL_STATUS } from 'src/models/user.model';
 export class GradeStudentComponent implements OnInit {
   form: FormGroup = new FormGroup({
     maths: new FormControl('', [Validators.required]),
-    physics: new FormControl('', [Validators.required]),
-    chemistry: new FormControl('', [Validators.required]),
+    physics: new FormControl('', []),
+    chemistry: new FormControl('', []),
   });
   isLoading: boolean = false;
 
@@ -43,8 +43,8 @@ export class GradeStudentComponent implements OnInit {
         examId: this.dataInfo.examId,
         userId: this.dataInfo.userId,
         maths: this.form.get('maths')?.value,
-        physics: this.form.get('physics')?.value,
-        chemistry: this.form.get('chemistry')?.value,
+        physics: 0,
+        chemistry: 0,
       })
       .subscribe(
         ele => {

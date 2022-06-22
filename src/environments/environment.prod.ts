@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiURL: 'http://localhost:3000/',
+  apiURL: 'http://elb-ubunut1804-1643489929.us-east-1.elb.amazonaws.com/',
 };

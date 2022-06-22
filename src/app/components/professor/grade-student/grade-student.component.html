@@ -3,7 +3,7 @@
   <form [formGroup]="form">
     <div class="add-exam-request-form">
       <div class="form-field-1">
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>Maths</mat-label>
           <mat-select formControlName="maths" required>
             <mat-option>Select</mat-option>
@@ -11,9 +11,13 @@
               {{ user.name }}
             </mat-option>
           </mat-select>
+        </mat-form-field> -->
+        <mat-form-field>
+          <mat-label>Enter Grade</mat-label>
+          <input matInput formControlName="maths" type="number" required />
         </mat-form-field>
       </div>
-      <div class="form-field-1">
+      <!-- <div class="form-field-1">
         <mat-form-field>
           <mat-label>Physics</mat-label>
           <mat-select formControlName="physics" required>
@@ -34,7 +38,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
     </div>
   </form>
 

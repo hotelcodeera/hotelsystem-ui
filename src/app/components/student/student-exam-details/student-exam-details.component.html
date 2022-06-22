@@ -12,11 +12,11 @@
         class="student-grades-container"
         *ngIf="examDetails.studentGrades && examDetails.studentGrades.length; else gradingPendingContainer"
       >
-        <div style="text-align: center">
+        <!-- <div style="text-align: center">
           <h2>Grades</h2>
-        </div>
+        </div> -->
         <div class="student-grades" *ngFor="let grades of examDetails.studentGrades">
-          <h4>{{ grades.subject }}</h4>
+          <h4>Grade</h4>
           -
           <h4>{{ grades.grade }}</h4>
         </div>
