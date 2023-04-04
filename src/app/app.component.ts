@@ -47,7 +47,7 @@ export class AppComponent {
         if (userDetails.userType === UserType.Admin) {
           this.menuItems = [
             {
-              link: '/professor/dashboard',
+              link: '/admin/dashboard',
               text: 'Home',
             },
           ];
