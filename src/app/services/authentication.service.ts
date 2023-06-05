@@ -26,7 +26,7 @@ export class AuthenticationService {
       lastName: 'dummy',
       email: 'dummy',
       username: 'test',
-      userType: UserType.Professor,
+      userType: UserType.Staff,
     };
   }
 

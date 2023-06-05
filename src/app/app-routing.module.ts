@@ -9,8 +9,8 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'professor',
-    loadChildren: () => import('./components/professor/professor.module').then(m => m.ProfessorModule),
+    path: 'staff',
+    loadChildren: () => import('./components/staff/staff.module').then(m => m.StaffModule),
     canActivate: [AuthGuard],
   },
   {

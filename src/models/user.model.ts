@@ -13,7 +13,7 @@ export interface User {
 export enum UserType {
   User = 'USER',
   Admin = 'ADMIN',
-  Professor = 'PROFESSOR',
+  Staff = 'STAFF',
 }
 
 export interface CreateUserRequest {
@@ -70,6 +70,19 @@ export interface StudentRegistrationResponse {
   updated?: string;
   studentGrades?: StudentGrades[];
 }
+
+export interface ProductDetails {
+  _id: string;
+  outOfStock: boolean;
+  updated: string;
+  name: string;
+  userId: string;
+  description: string;
+  price: number;
+  waitingTime: number;
+  created: string;
+}
+
 export interface StudentRegistrationResponseWithUser {
   _id: string;
   examId: string;
@@ -87,7 +100,7 @@ export const MOCK_USER = {
   lastName: 'dummy',
   email: 'dummy',
   username: 'test',
-  userType: UserType.Professor,
+  userType: UserType.Staff,
 };
 
 export interface LoginResponse {
@@ -219,6 +232,12 @@ export interface CreateExamRequest {
   description: string;
 }
 
+export interface CreateProductRequest {
+  name: string;
+  description: string;
+  price: number;
+  waitingTime: number;
+}
 export interface RegisterStudentRequest {
   examId: string;
   userId: string;

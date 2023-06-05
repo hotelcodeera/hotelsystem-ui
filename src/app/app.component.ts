@@ -34,10 +34,10 @@ export class AppComponent {
           ];
           return;
         }
-        if (userDetails.userType === UserType.Professor) {
+        if (userDetails.userType === UserType.Staff) {
           this.menuItems = [
             {
-              link: '/professor/dashboard',
+              link: '/staff/dashboard',
               text: 'Home',
             },
           ];

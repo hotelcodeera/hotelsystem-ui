@@ -9,7 +9,7 @@ import { AddUserTypeComponent } from '../add-user-type/add-user-type.component';
   styleUrls: ['./admin-dashboard.component.scss'],
 })
 export class AdminDashboardComponent implements OnInit {
-  professorType = UserType.Professor;
+  hotelStaff = UserType.Staff;
   studentType = UserType.User;
   constructor(private dialog: MatDialog) {}
 

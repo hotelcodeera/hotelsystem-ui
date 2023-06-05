@@ -1,0 +1,164 @@
+.products-list-container {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  box-shadow: none;
+  background-color: white;
+
+  .register-student-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 20px;
+  }
+}
+.mat-table {
+  mat-header-cell {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+/* Toolbar */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Filter */
+.form {
+  min-height: 56px;
+  max-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+}
+.mat-header-cell:last-of-type {
+  justify-content: center;
+}
+.mat-cell:last-of-type {
+  justify-content: center;
+}
+.mat-form-field {
+  font-size: 14px;
+  flex-grow: 1;
+  margin-top: 25px;
+}
+.mat-raised-button {
+  margin-right: 12px;
+}
+
+/* Mat table */
+.no-results {
+  display: flex;
+  justify-content: center;
+  padding: 14px;
+  font-size: 14px;
+  font-style: italic;
+}
+.mat-cell {
+  cursor: pointer;
+}
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1) {
+  flex: 0 0 20%;
+  justify-content: center;
+}
+
+.mat-cell:nth-child(2),
+.mat-header-cell:nth-child(2) {
+  flex: 0 0 20%;
+  justify-content: center;
+}
+
+.mat-cell:nth-child(3),
+.mat-header-cell:nth-child(3) {
+  flex: 0 0 15%;
+  justify-content: center;
+}
+.mat-cell:nth-child(4),
+.mat-header-cell:nth-child(4) {
+  flex: 0 0 18%;
+  justify-content: center;
+}
+
+.mat-cell:nth-child(5),
+.mat-header-cell:nth-child(5) {
+  flex: 0 0 25%;
+  justify-content: center;
+}
+.mobile-label {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .mobile-label {
+    width: auto;
+    margin-right: 8px;
+    display: inline-block;
+    font-weight: bold;
+  }
+  .mobile-text {
+    text-align: end;
+    width: auto;
+    display: inline-block;
+  }
+  .container {
+    margin-bottom: 32%;
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+  }
+  .mat-cell:first-of-type,
+  mat-header-cell:first-of-type,
+  mat-footer-cell:first-of-type {
+    padding: 2px;
+  }
+  .mat-cell {
+    flex: 0;
+  }
+  .mat-header-row {
+    display: none;
+  }
+  .mat-card-header {
+    margin-left: 20%;
+  }
+  h2 {
+    text-align: justify;
+  }
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 1px 24px 15px 24px;
+  }
+  .mat-cell:nth-child(1),
+  .mat-header-cell:nth-child(1) {
+    flex: 0 0 0;
+  }
+
+  .mat-cell:nth-child(2),
+  .mat-header-cell:nth-child(2) {
+    flex: 0 0 0;
+  }
+
+  .mat-cell:nth-child(3),
+  .mat-header-cell:nth-child(3) {
+    flex: 0 0 0;
+  }
+  .mat-cell:nth-child(4),
+  .mat-header-cell:nth-child(4) {
+    flex: 0 0 0;
+  }
+  .mat-cell:nth-child(5),
+  .mat-header-cell:nth-child(5) {
+    flex: 0 0 0;
+  }
+  .mat-paginator {
+    flex-wrap: nowrap;
+  }
+}

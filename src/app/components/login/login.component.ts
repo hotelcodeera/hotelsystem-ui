@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
         console.log(data);
         this.authenticationService.setUserDetails(data.token);
         const userDetails = this.authenticationService.getUserDetails();
-        if (userDetails.userType === UserType.Professor) {
-          this.router.navigate(['/professor/dashboard']);
+        if (userDetails.userType === UserType.Staff) {
+          this.router.navigate(['/staff/dashboard']);
           return;
         }
         if (userDetails.userType === UserType.User) {

@@ -1,0 +1,16 @@
+.add-product-request-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .form-field-1 {
+    margin: 10px 0;
+  }
+}
+
+.add-product-actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
