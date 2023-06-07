@@ -40,6 +40,10 @@ export class AppComponent {
               link: '/staff/dashboard',
               text: 'Home',
             },
+            {
+              link: '/staff/orders',
+              text: 'Orders',
+            },
           ];
           return;
         }

@@ -83,6 +83,41 @@ export interface ProductDetails {
   created: string;
 }
 
+export interface StaffOrders {
+  _id: string;
+  outOfStock: boolean;
+  updated: string;
+  name: string;
+  userId: string;
+  description: string;
+  price: number;
+  waitingTime: number;
+  created: string;
+  orders: {
+    _id: string;
+    orderStatus: string;
+    updated: string;
+    productId: string;
+    userId: string;
+    quantity: number;
+    created: string;
+  }[];
+}
+
+export interface TransformedStaffOrders {
+  orderId: string;
+  orderStatus: string;
+  updated: string;
+  productId: string;
+  userId: string;
+  quantity: number;
+  created: string;
+  productName: string;
+  productDescription: string;
+  price: number;
+  billAmount: number;
+}
+
 export interface StudentRegistrationResponseWithUser {
   _id: string;
   examId: string;

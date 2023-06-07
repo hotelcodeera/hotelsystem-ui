@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'professor/dashboard',
+    redirectTo: 'staff/dashboard',
   },
 ];
 

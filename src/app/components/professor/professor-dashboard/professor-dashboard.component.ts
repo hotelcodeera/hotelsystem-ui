@@ -48,7 +48,6 @@ export class ProfessorDashboardComponent implements OnInit {
   }
 
   viewExam(examId: string) {
-    console.log(examId, 'examId');
     this.router.navigate([`professor/exam/${examId}`]);
   }
 

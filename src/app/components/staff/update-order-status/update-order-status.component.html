@@ -1,0 +1,39 @@
+<h2 mat-dialog-title style="text-align: center">Update Order status</h2>
+<mat-dialog-content class="mat-typography">
+  <div *ngIf="!orderList.length; else usersListTemplate">
+    <h2>All students are registered</h2>
+  </div>
+  <ng-template #usersListTemplate>
+    <form [formGroup]="form">
+      <div class="order-status-request-form">
+        <div class="form-field-1">
+          <mat-form-field>
+            <mat-label>Select status</mat-label>
+            <mat-select formControlName="orderStatus" required>
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let user of orderList" [value]="user.value">
+                {{ user.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="order-status-actions">
+    <button mat-raised-button mat-dialog-close color="warn" (click)="cancel()" [disabled]="isLoading">Cancel</button>
+    <button
+      mat-raised-button
+      [disabled]="!form.valid.valueOf() || isLoading || !orderList.length"
+      color="primary"
+      (click)="updateOrderStatus()"
+      cdkFocusInitial
+    >
+      Update
+    </button>
+  </div>
+</mat-dialog-actions>
