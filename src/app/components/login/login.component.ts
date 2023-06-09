@@ -28,6 +28,11 @@ export class LoginComponent implements OnInit {
     this.authenticationService.logout();
   }
 
+  register() {
+    this.router.navigate(['/register']);
+    return;
+  }
+
   submit() {
     this.loading = true;
     this.authenticationService.login(this.form.get('email')?.value, this.form.get('password')?.value).subscribe(

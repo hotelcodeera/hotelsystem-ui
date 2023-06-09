@@ -10,6 +10,14 @@ export interface User {
   updated?: string;
 }
 
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+
 export enum UserType {
   User = 'USER',
   Admin = 'ADMIN',
@@ -104,7 +112,28 @@ export interface StaffOrders {
   }[];
 }
 
-export interface TransformedStaffOrders {
+export interface CustomerOrders {
+  _id: string;
+  orderStatus: string;
+  updated: string;
+  productId: string;
+  userId: string;
+  quantity: number;
+  created: string;
+  productDetails: {
+    _id: string;
+    outOfStock: boolean;
+    updated: string;
+    name: string;
+    userId: string;
+    description: string;
+    price: number;
+    waitingTime: number;
+    created: string;
+  };
+}
+
+export interface TransformedOrders {
   orderId: string;
   orderStatus: string;
   updated: string;

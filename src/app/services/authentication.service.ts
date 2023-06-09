@@ -4,7 +4,15 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ACCESS_TOKEN, API_VERSION_URL, CreateUserRequest, LoginResponse, User, UserType } from 'src/models/user.model';
+import {
+  ACCESS_TOKEN,
+  API_VERSION_URL,
+  CreateUserRequest,
+  LoginResponse,
+  RegisterRequest,
+  User,
+  UserType,
+} from 'src/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -93,6 +101,23 @@ export class AuthenticationService {
         map(res => {
           return { success: true };
         }),
+        catchError(err => {
+          return throwError(() => err);
+        }),
+      );
+  }
+
+  register({ username, email, password, firstName, lastName }: RegisterRequest) {
+    return this.http
+      .post<LoginResponse>(`${environment.apiURL}${API_VERSION_URL}/auth/register`, {
+        email,
+        password,
+        username,
+        firstName,
+        lastName,
+      })
+      .pipe(
+        map(res => res || ''),
         catchError(err => {
           return throwError(() => err);
         }),

@@ -1,0 +1,28 @@
+<div *ngIf="isLoading; else examListTemplate">Loading...</div>
+<ng-template #examListTemplate>
+  <div class="customer-dashboard-container">
+    <!-- <div class="create-exam-container">
+      <button mat-raised-button color="primary" (click)="createExam()">Create Exam</button>
+    </div> -->
+    <div *ngIf="!examsList?.length; else examsTemplate">
+      <h2 style="text-align: center">Products are not available</h2>
+    </div>
+    <ng-template #examsTemplate>
+      <div class="course-container" *ngFor="let exam of examsList">
+        <mat-card class="course-detail">
+          <mat-card-title>{{ exam.name }}</mat-card-title>
+          <mat-card-subtitle>Price:- ${{ exam.price }}</mat-card-subtitle>
+          <mat-card-content>
+            <p>{{ exam.description }}</p>
+            <p>{{ exam.waitingTime }}</p>
+          </mat-card-content>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions>
+            <div></div>
+            <button mat-raised-button color="primary" (click)="viewDetails(exam)">Order</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>

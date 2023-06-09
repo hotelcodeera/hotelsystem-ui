@@ -1,27 +1,24 @@
 import { DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject, Observable, fromEvent, merge } from 'rxjs';
 import { delay, map, startWith } from 'rxjs/operators';
-import { AdminOrdersService } from 'src/app/services/admin-orders.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { CANCEL_STATUS, SUBJECTS_COUNT, TransformedOrders } from 'src/models/user.model';
-import { UpdateOrderStatusComponent } from '../update-order-status/update-order-status.component';
+import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
+import { SUBJECTS_COUNT, TransformedOrders } from 'src/models/user.model';
 
 const ELEMENT_DATA: TransformedOrders[] = [];
 
 @Component({
-  selector: 'app-staff-orders',
-  templateUrl: './staff-orders.component.html',
-  styleUrls: ['./staff-orders.component.scss'],
+  selector: 'app-customer-orders',
+  templateUrl: './customer-orders.component.html',
+  styleUrls: ['./customer-orders.component.scss'],
 })
-export class StaffOrdersComponent implements OnInit {
+export class CustomerOrdersComponent implements OnInit {
   displayedColumns = [
-    'orderId',
     'productName',
     // 'userId',
     'created',
@@ -29,7 +26,6 @@ export class StaffOrdersComponent implements OnInit {
     'price',
     'billAmount',
     'orderStatus',
-    'actions',
   ];
 
   @ViewChild(MatPaginator, { static: true })
@@ -39,7 +35,7 @@ export class StaffOrdersComponent implements OnInit {
   @ViewChild('filter', { static: true })
   filter!: ElementRef;
 
-  exampleDatabase!: AdminOrdersService;
+  exampleDatabase!: CustomerOrdersService;
   dataSource!: ExampleDataSource;
   dataSourceUpdated = new MatTableDataSource(ELEMENT_DATA);
   index!: number;
@@ -48,11 +44,7 @@ export class StaffOrdersComponent implements OnInit {
   subjectCount = SUBJECTS_COUNT;
   examId: string = '';
   updatingProduct: string = '';
-  constructor(
-    public httpClient: HttpClient,
-    private authenticationService: AuthenticationService,
-    private dialog: MatDialog,
-  ) {}
+  constructor(public httpClient: HttpClient, private authenticationService: AuthenticationService) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -63,7 +55,7 @@ export class StaffOrdersComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new AdminOrdersService(this.httpClient, this.authenticationService);
+    this.exampleDatabase = new CustomerOrdersService(this.httpClient, this.authenticationService);
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
     fromEvent(this.filter.nativeElement, 'keyup').subscribe(() => {
       if (!this.dataSource) {
@@ -71,30 +63,6 @@ export class StaffOrdersComponent implements OnInit {
       }
       this.dataSource.filter = this.filter.nativeElement.value;
     });
-  }
-
-  updateStatus(details: TransformedOrders) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.height = '300px';
-    dialogConfig.width = '300px';
-    dialogConfig.data = {
-      orderId: details.orderId,
-      orderStatus: details.orderStatus,
-    };
-    const registerStudentDialog = this.dialog.open(UpdateOrderStatusComponent, dialogConfig);
-    registerStudentDialog.afterClosed().subscribe((val: { status: string; data: TransformedOrders }) => {
-      if (val.status === CANCEL_STATUS) {
-        return;
-      }
-      // const data = this.exampleDatabase.dataChange.value;
-      // this.exampleDatabase.dataChange.next([...data, val.data]);
-      this.refresh();
-      this.refreshTable();
-    });
-  }
-
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
   }
 
   transformISOStringToDate(isoString: string) {
@@ -125,7 +93,7 @@ export class ExampleDataSource extends DataSource<TransformedOrders> {
 
   filteredData: TransformedOrders[] = [];
   renderedData: TransformedOrders[] = [];
-  constructor(public exampleDatabase: AdminOrdersService, public paginator: MatPaginator, public sort: MatSort) {
+  constructor(public exampleDatabase: CustomerOrdersService, public paginator: MatPaginator, public sort: MatSort) {
     super();
     // Reset to the first page when the user changes the filter.
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
@@ -138,7 +106,7 @@ export class ExampleDataSource extends DataSource<TransformedOrders> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getOrdersForStaff();
+    this.exampleDatabase.getAllOrdersForUser();
     this.exampleDatabase
       .getValue()
       .pipe(startWith(null), delay(0))
@@ -183,9 +151,6 @@ export class ExampleDataSource extends DataSource<TransformedOrders> {
       let propertyB: number | string | boolean = '';
 
       switch (this.sort.active) {
-        case 'orderId':
-          [propertyA, propertyB] = [a.orderId, b.orderId];
-          break;
         case 'productName':
           [propertyA, propertyB] = [a.productName, b.productName];
           break;

@@ -1,0 +1,88 @@
+<div class="customer-orders-list-container mat-elevation-z8">
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Filter orders" />
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell" style="margin-top: 25px">
+    <!-- <ng-container matColumnDef="orderId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index">
+          <span class="mobile-label">Order Id- </span><span class="mobile-text">{{ row.orderId }}</span>
+        </mat-cell>
+      </ng-container> -->
+
+    <ng-container matColumnDef="productName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index">
+        <span class="mobile-label">Product Name-</span><span class="mobile-text">{{ row.productName }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="userId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>User ID</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index">
+          <span class="mobile-label">User ID-</span><span class="mobile-text">{{ row.userId }}</span>
+        </mat-cell>
+      </ng-container> -->
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index">
+        <span class="mobile-label">Created - </span
+        ><span class="mobile-text">{{ transformISOStringToDate(row.created) }}</span>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index">
+        <span class="mobile-label">Quantity - </span><span class="mobile-text">{{ row.quantity }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index">
+        <span class="mobile-label">Price-</span><span class="mobile-text">{{ row.price }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="billAmount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index">
+        <span class="mobile-label">Bill Amount -</span><span class="mobile-text">{{ row.billAmount }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="orderStatus">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index">
+        <span class="mobile-label">Status-</span><span class="mobile-text">{{ row.orderStatus }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index">
+          <button mat-raised-button color="primary" [disabled]="updatingProduct === row._id" (click)="updateStatus(row)">
+            Update Status
+          </button>
+        </mat-cell>
+      </ng-container> -->
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    {{ !dataSource.requestlistStatusNew ? 'Fetching results' : 'No Results' }}
+  </div>
+  <mat-paginator
+    #paginator
+    [length]="dataSource.filteredData.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    style="flex-wrap: nowrap"
+  >
+  </mat-paginator>
+</div>

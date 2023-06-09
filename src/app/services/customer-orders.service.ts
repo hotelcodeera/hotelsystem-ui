@@ -2,13 +2,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { API_VERSION_URL, StaffOrders, TransformedOrders } from 'src/models/user.model';
+import { API_VERSION_URL, CustomerOrders, ProductDetails, TransformedOrders } from 'src/models/user.model';
 import { AuthenticationService } from './authentication.service';
-
 @Injectable({
   providedIn: 'root',
 })
-export class AdminOrdersService {
+export class CustomerOrdersService {
   dataChange: BehaviorSubject<TransformedOrders[]> = new BehaviorSubject<TransformedOrders[]>([]);
   public retrivingData: BehaviorSubject<boolean>;
 
@@ -27,48 +26,45 @@ export class AdminOrdersService {
     this.retrivingData.next(newValue);
   }
 
-  transformOrders(orders: StaffOrders[]): TransformedOrders[] {
+  transformOrders(orders: CustomerOrders[]): TransformedOrders[] {
     let res: TransformedOrders[] = [];
     orders.forEach(ele => {
       res = [
         ...res,
-        ...ele.orders.map(val => {
-          return {
-            orderId: val._id,
-            orderStatus: val.orderStatus,
-            updated: val.updated,
-            productId: val.productId,
-            userId: val.userId,
-            quantity: val.quantity,
-            created: val.created,
-            productName: ele.name,
-            productDescription: ele.description,
-            price: ele.price,
-            billAmount: ele.price * val.quantity,
-          } as TransformedOrders;
-        }),
+        {
+          orderId: ele._id,
+          orderStatus: ele.orderStatus,
+          updated: ele.updated,
+          productId: ele.productDetails._id,
+          userId: ele.productDetails.userId,
+          quantity: ele.quantity,
+          created: ele.created,
+          productName: ele.productDetails.name,
+          productDescription: ele.productDetails.description,
+          price: ele.productDetails.price,
+          billAmount: ele.productDetails.price * ele.quantity,
+        },
       ];
     });
     return res;
   }
 
-  getOrdersForStaff(): void {
+  getAllOrdersForUser(): void {
     this.http
-      .get<{ success: boolean; data: StaffOrders[] }>(
-        `${environment.apiURL}${API_VERSION_URL}/professor/getAllOrders`,
+      .get<{ success: boolean; data: CustomerOrders[] }>(
+        `${environment.apiURL}${API_VERSION_URL}/student/getAllUsersOrders`,
         {
           headers: this.authenticationService.getHeaders(),
         },
       )
       .subscribe(
         data => {
-          console.log(data);
-          if (data.data.length > 0) {
-            const updatedRes = this.transformOrders(data.data);
-            this.dataChange.next(updatedRes);
-          } else {
+          if (data.data.length <= 0) {
             this.dataChange.next([]);
+            return;
           }
+          const updatedRes = this.transformOrders(data.data);
+          this.dataChange.next(updatedRes);
         },
         (error: HttpErrorResponse) => {
           console.log(error.error.error);
@@ -76,19 +72,32 @@ export class AdminOrdersService {
         () => {
           console.log('complete get data api');
           this.setValue(true);
-          this.retrivingData.subscribe(value => {
-            console.log(value);
-          });
         },
       );
   }
 
-  updateOrderStatus(orderId: string, orderStatus: string) {
+  getProducts() {
     return this.http
-      .post<{ success: boolean; data: TransformedOrders }>(
-        `${environment.apiURL}${API_VERSION_URL}/professor/updateOrderStatus/${orderId}`,
+      .get<{ success: boolean; data: ProductDetails[] }>(
+        `${environment.apiURL}${API_VERSION_URL}/student/getProducts`,
         {
-          orderStatus,
+          headers: this.authenticationService.getHeaders(),
+        },
+      )
+      .pipe(
+        map(res => res.data),
+        catchError(err => {
+          return throwError(() => err);
+        }),
+      );
+  }
+
+  orderProduct(quantity: number, productId: string) {
+    return this.http
+      .post<{ success: boolean; data: CustomerOrders }>(
+        `${environment.apiURL}${API_VERSION_URL}/student/order/${productId}`,
+        {
+          quantity,
         },
         {
           headers: this.authenticationService.getHeaders(),

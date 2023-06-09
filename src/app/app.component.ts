@@ -28,8 +28,12 @@ export class AppComponent {
         if (userDetails.userType === UserType.User) {
           this.menuItems = [
             {
-              link: '/user-home/dashboard',
+              link: '/student/dashboard',
               text: 'Home',
+            },
+            {
+              link: '/student/orders',
+              text: 'Orders',
             },
           ];
           return;
