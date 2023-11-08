@@ -64,7 +64,7 @@ export class CustomerDashboardComponent implements OnInit {
     paymentHandler.open({
       name: 'Hotel Code Era',
       description: `Payment for ${product.name}`,
-      amount: product.price * quantity,
+      amount: product.price * quantity * 100,
     });
   }
 
