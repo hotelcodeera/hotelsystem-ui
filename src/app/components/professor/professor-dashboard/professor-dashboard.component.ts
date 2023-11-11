@@ -28,7 +28,7 @@ export class ProfessorDashboardComponent implements OnInit {
     const userDetails = this.authenticationService.getUserDetails();
     if (isLoggedIn) {
       if (userDetails.userType === UserType.User) {
-        this.router.navigate(['/student/dashboard']);
+        this.router.navigate(['/customer/dashboard']);
         return;
       }
     }

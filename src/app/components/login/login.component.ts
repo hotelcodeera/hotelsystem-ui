@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
           return;
         }
         if (userDetails.userType === UserType.User) {
-          this.router.navigate(['/student/dashboard']);
+          this.router.navigate(['/customer/dashboard']);
           return;
         }
         if (userDetails.userType === UserType.Admin) {
