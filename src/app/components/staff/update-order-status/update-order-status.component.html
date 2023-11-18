@@ -1,7 +1,7 @@
 <h2 mat-dialog-title style="text-align: center">Update Order status</h2>
 <mat-dialog-content class="mat-typography">
   <div *ngIf="!orderList.length; else usersListTemplate">
-    <h2>All students are registered</h2>
+    <h2>No active orders</h2>
   </div>
   <ng-template #usersListTemplate>
     <form [formGroup]="form">

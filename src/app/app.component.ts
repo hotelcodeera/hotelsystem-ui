@@ -8,7 +8,7 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'grading-system';
+  title = 'hotel-code-era';
 
   menuItems: { link: string; text: string }[] = [];
 

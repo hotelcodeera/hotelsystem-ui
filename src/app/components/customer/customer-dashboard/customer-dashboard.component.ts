@@ -12,7 +12,7 @@ import { OrderFormComponent } from '../order-form/order-form.component';
 })
 export class CustomerDashboardComponent implements OnInit {
   isLoading = true;
-  examsList: ProductDetails[] = [];
+  productsList: ProductDetails[] = [];
   paymentHandler: any = null;
   constructor(
     private products: CustomerOrdersService,
@@ -23,12 +23,12 @@ export class CustomerDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.products.getProducts().subscribe(
       res => {
-        this.examsList = res;
+        this.productsList = res;
         this.isLoading = false;
       },
       err => {
         console.log(err);
-        this.snackBar.openSnackBar(err?.error?.error || 'Unable to fetch Exams', '');
+        this.snackBar.openSnackBar(err?.error?.error || 'Unable to fetch Products', '');
       },
       () => {
         console.log('complete api');
@@ -43,8 +43,8 @@ export class CustomerDashboardComponent implements OnInit {
     dialogConfig.data = {
       type: 'ADD',
     };
-    const registerStudentDialog = this.dialog.open(OrderFormComponent, dialogConfig);
-    registerStudentDialog.afterClosed().subscribe((val: { status: string; data: number }) => {
+    const registerUserDialog = this.dialog.open(OrderFormComponent, dialogConfig);
+    registerUserDialog.afterClosed().subscribe((val: { status: string; data: number }) => {
       if (val.status === CANCEL_STATUS) {
         return;
       }
@@ -76,7 +76,7 @@ export class CustomerDashboardComponent implements OnInit {
       },
       err => {
         console.log(err);
-        this.snackBar.openSnackBar(err?.error?.error || 'Unable to create exam', '');
+        this.snackBar.openSnackBar(err?.error?.error || 'Unable to create Product', '');
       },
     );
   }

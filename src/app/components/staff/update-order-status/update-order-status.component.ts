@@ -24,12 +24,11 @@ export class UpdateOrderStatusComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UpdateOrderStatusComponent>,
     @Inject(MAT_DIALOG_DATA) public dataInfo: any,
-    private examService: AdminOrdersService,
+    private adminOrdersService: AdminOrdersService,
     private snackbar: SnackbarWrapperService,
   ) {}
 
   ngOnInit(): void {
-    console.log('wefa', this.dataInfo?.orderStatus);
     this.form = new FormGroup({
       orderStatus: new FormControl(this.dataInfo?.orderStatus, [Validators.required, Validators.maxLength(15)]),
     });
@@ -41,7 +40,7 @@ export class UpdateOrderStatusComponent implements OnInit {
 
   updateOrderStatus() {
     this.isLoading = true;
-    this.examService.updateOrderStatus(this.dataInfo.orderId, this.form.get('orderStatus')?.value).subscribe(
+    this.adminOrdersService.updateOrderStatus(this.dataInfo.orderId, this.form.get('orderStatus')?.value).subscribe(
       ele => {
         this.isLoading = false;
         this.dialogRef.close({ status: 'SUCCESS', data: ele });

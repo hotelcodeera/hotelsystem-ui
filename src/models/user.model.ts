@@ -32,53 +32,6 @@ export interface CreateUserRequest {
   userType: UserType;
 }
 
-export interface Exam {
-  _id: string;
-  name: string;
-  description: string;
-  userId: string;
-  created?: string;
-  updated?: string;
-}
-
-export interface ExamListResponse {
-  _id: string;
-  name: string;
-  description: string;
-  userId: string;
-  created?: string;
-  updated?: string;
-}
-
-export interface UnRegisteredStudents {
-  userId: string;
-  userName: string;
-}
-
-export interface StudentGrades {
-  subject: string;
-  grade: number;
-}
-
-export interface StudentRegistration {
-  _id: string;
-  userId: string;
-  examId: string;
-  created?: string;
-  updated?: string;
-  studentGrades?: StudentGrades[];
-}
-
-export interface StudentRegistrationResponse {
-  _id: string;
-  userId: string;
-  userName: string;
-  examId: string;
-  created?: string;
-  updated?: string;
-  studentGrades?: StudentGrades[];
-}
-
 export interface ProductDetails {
   _id: string;
   outOfStock: boolean;
@@ -147,15 +100,6 @@ export interface TransformedOrders {
   billAmount: number;
 }
 
-export interface StudentRegistrationResponseWithUser {
-  _id: string;
-  examId: string;
-  created?: string;
-  updated?: string;
-  studentGrades?: StudentGrades[];
-  userDetails: User;
-}
-
 export const ACCESS_TOKEN = 'access-token';
 
 export const MOCK_USER = {
@@ -172,148 +116,11 @@ export interface LoginResponse {
   token: string;
 }
 
-export const MOCK_EXAM_REGISTRATION: StudentRegistrationResponse[] = [
-  {
-    _id: 'weafguehwagf weuaf',
-    userId: 'awefuehwbg fwhebfh',
-    examId: 'eawfh uwehfu',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-    userName: 'waefaefwaewf',
-    studentGrades: [
-      {
-        subject: 'PHYSICS',
-        grade: 3,
-      },
-      {
-        subject: 'MATHS',
-        grade: 2,
-      },
-      {
-        subject: 'CHEMISTRY',
-        grade: 4,
-      },
-    ],
-  },
-  {
-    _id: 'weafgGFBDHSTRGERGf',
-    userId: 'awefuehwbg fwhebfh',
-    examId: 'eawfh uwehfu',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-    userName: 'waefaefwaewf',
-    studentGrades: [
-      {
-        subject: 'PHYSICS',
-        grade: 2,
-      },
-      {
-        subject: 'MATHS',
-        grade: 1,
-      },
-      {
-        subject: 'CHEMISTRY',
-        grade: 4,
-      },
-    ],
-  },
-  {
-    _id: 'EWAFUHAWEFAWEF',
-    userId: 'awefuehwbg fwhebfh',
-    userName: 'waefaefwaewf',
-    examId: 'eawfh uwehfu',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-    studentGrades: [],
-  },
-  {
-    _id: 'EWAFUHAWEFAWEF',
-    userId: 'awefuehwbg fwhebfh',
-    examId: 'eawfh uwehfu',
-    userName: 'waefaefwaewf',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-    studentGrades: undefined,
-  },
-];
-
-export const MOCK_EXAMS: ExamListResponse[] = [
-  {
-    _id: 'awefaewfwaef',
-    name: 'maths',
-    description: 'weahfgheb jbweaf wehfh wvefh',
-    userId: 'jkaewfhgwafhv weaf',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-  },
-  {
-    _id: 'ecvvgwefawf',
-    name: 'physics',
-    description: 'weahfgheb jbweaf wehfh wvefh',
-    userId: 'jkaewfhgwafhv weaf',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-  },
-  {
-    _id: 'waewfaewgbf',
-    name: 'chemistry',
-    description: 'weahfgheb jbweaf wehfh wvefh',
-    userId: 'jkaewfhgwafhv weaf',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-  },
-  {
-    _id: 'tytryeryeryt',
-    name: 'english',
-    description: 'weahfgheb jbweaf wehfh wvefh',
-    userId: 'jkaewfhgwafhv weaf',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-  },
-  {
-    _id: 'vbsdgvergv',
-    name: 'sanskrit',
-    description: 'weahfgheb jbweaf wehfh wvefh',
-    userId: 'jkaewfhgwafhv weaf',
-    created: new Date().toISOString(),
-    updated: new Date().toISOString(),
-  },
-];
-
-export const MOCK_UNREGISTERED_USERS: UnRegisteredStudents[] = [
-  {
-    userId: 'WEAFHBWABFWAHEBF',
-    userName: 'ewafewafewaf',
-  },
-  {
-    userId: 'waefafwaef',
-    userName: 'awefawef',
-  },
-];
-
-export interface CreateExamRequest {
-  name: string;
-  description: string;
-}
-
 export interface CreateProductRequest {
   name: string;
   description: string;
   price: number;
   waitingTime: number;
-}
-export interface RegisterStudentRequest {
-  examId: string;
-  userId: string;
-}
-
-export interface StudentGrade {
-  maths: number;
-  physics: number;
-  chemistry: number;
-  examId: string;
-  userId: string;
-  requestId: string;
 }
 
 export const MOCK_JWT =
@@ -322,14 +129,5 @@ export const MOCK_JWT =
 export const SUBJECTS_COUNT = 3;
 
 export const CANCEL_STATUS = 'CANCEL';
-
-export interface StudentRegistrationDetailResponse {
-  _id: string;
-  name: string;
-  description: string;
-  studentGrades?: StudentGrades[];
-  isNotRegistered?: boolean;
-  examId: string;
-}
 
 export const API_VERSION_URL = 'api/v1';

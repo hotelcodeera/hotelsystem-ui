@@ -77,8 +77,8 @@ export class StaffDashboardComponent implements OnInit {
     dialogConfig.data = {
       type: 'ADD',
     };
-    const registerStudentDialog = this.dialog.open(AddProductComponent, dialogConfig);
-    registerStudentDialog.afterClosed().subscribe((val: { status: string; data: ProductDetails }) => {
+    const registerUserDialog = this.dialog.open(AddProductComponent, dialogConfig);
+    registerUserDialog.afterClosed().subscribe((val: { status: string; data: ProductDetails }) => {
       if (val.status === CANCEL_STATUS) {
         return;
       }

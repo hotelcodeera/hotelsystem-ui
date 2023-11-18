@@ -22,7 +22,7 @@ export class AddProductComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddProductComponent>,
     @Inject(MAT_DIALOG_DATA) public dataInfo: any,
-    private examService: ProductsService,
+    private productService: ProductsService,
     private snackBar: SnackbarWrapperService,
   ) {}
 
@@ -43,7 +43,7 @@ export class AddProductComponent implements OnInit {
       this.edit();
       return;
     }
-    this.examService
+    this.productService
       .createProduct({
         name: this.form.get('name')?.value,
         description: this.form.get('description')?.value,

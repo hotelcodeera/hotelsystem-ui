@@ -1,25 +1,22 @@
-<div *ngIf="isLoading; else examListTemplate">Loading...</div>
-<ng-template #examListTemplate>
+<div *ngIf="isLoading; else productListTemplate">Loading...</div>
+<ng-template #productListTemplate>
   <div class="customer-dashboard-container">
-    <!-- <div class="create-exam-container">
-      <button mat-raised-button color="primary" (click)="createExam()">Create Exam</button>
-    </div> -->
-    <div *ngIf="!examsList?.length; else examsTemplate">
+    <div *ngIf="!productsList?.length; else productsTemplate">
       <h2 style="text-align: center">Products are not available</h2>
     </div>
-    <ng-template #examsTemplate>
-      <div class="course-container" *ngFor="let exam of examsList">
+    <ng-template #productsTemplate>
+      <div class="course-container" *ngFor="let product of productsList">
         <mat-card class="course-detail">
-          <mat-card-title>{{ exam.name }}</mat-card-title>
-          <mat-card-subtitle>Price:- ${{ exam.price }}</mat-card-subtitle>
+          <mat-card-title>{{ product.name }}</mat-card-title>
+          <mat-card-subtitle>Price:- ${{ product.price }}</mat-card-subtitle>
           <mat-card-content>
-            <p>{{ exam.description }}</p>
-            <p>{{ exam.waitingTime }}</p>
+            <p>{{ product.description }}</p>
+            <p>{{ product.waitingTime }}</p>
           </mat-card-content>
           <mat-divider inset></mat-divider>
           <mat-card-actions>
             <div></div>
-            <button mat-raised-button color="primary" (click)="viewDetails(exam)">Order</button>
+            <button mat-raised-button color="primary" (click)="viewDetails(product)">Order</button>
           </mat-card-actions>
         </mat-card>
       </div>

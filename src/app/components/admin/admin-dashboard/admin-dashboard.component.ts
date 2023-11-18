@@ -10,7 +10,7 @@ import { AddUserTypeComponent } from '../add-user-type/add-user-type.component';
 })
 export class AdminDashboardComponent implements OnInit {
   hotelStaff = UserType.Staff;
-  studentType = UserType.User;
+  userType = UserType.User;
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}

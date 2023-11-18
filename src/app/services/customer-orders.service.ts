@@ -52,7 +52,7 @@ export class CustomerOrdersService {
   getAllOrdersForUser(): void {
     this.http
       .get<{ success: boolean; data: CustomerOrders[] }>(
-        `${environment.apiURL}${API_VERSION_URL}/student/getAllUsersOrders`,
+        `${environment.apiURL}${API_VERSION_URL}/user/getAllUsersOrders`,
         {
           headers: this.authenticationService.getHeaders(),
         },
@@ -78,12 +78,9 @@ export class CustomerOrdersService {
 
   getProducts() {
     return this.http
-      .get<{ success: boolean; data: ProductDetails[] }>(
-        `${environment.apiURL}${API_VERSION_URL}/student/getProducts`,
-        {
-          headers: this.authenticationService.getHeaders(),
-        },
-      )
+      .get<{ success: boolean; data: ProductDetails[] }>(`${environment.apiURL}${API_VERSION_URL}/user/getProducts`, {
+        headers: this.authenticationService.getHeaders(),
+      })
       .pipe(
         map(res => res.data),
         catchError(err => {
@@ -95,7 +92,7 @@ export class CustomerOrdersService {
   orderProduct(quantity: number, productId: string) {
     return this.http
       .post<{ success: boolean; data: CustomerOrders }>(
-        `${environment.apiURL}${API_VERSION_URL}/student/order/${productId}`,
+        `${environment.apiURL}${API_VERSION_URL}/user/order/${productId}`,
         {
           quantity,
         },

@@ -54,12 +54,9 @@ export class AdminOrdersService {
 
   getOrdersForStaff(): void {
     this.http
-      .get<{ success: boolean; data: StaffOrders[] }>(
-        `${environment.apiURL}${API_VERSION_URL}/professor/getAllOrders`,
-        {
-          headers: this.authenticationService.getHeaders(),
-        },
-      )
+      .get<{ success: boolean; data: StaffOrders[] }>(`${environment.apiURL}${API_VERSION_URL}/staff/getAllOrders`, {
+        headers: this.authenticationService.getHeaders(),
+      })
       .subscribe(
         data => {
           console.log(data);
@@ -86,7 +83,7 @@ export class AdminOrdersService {
   updateOrderStatus(orderId: string, orderStatus: string) {
     return this.http
       .post<{ success: boolean; data: TransformedOrders }>(
-        `${environment.apiURL}${API_VERSION_URL}/professor/updateOrderStatus/${orderId}`,
+        `${environment.apiURL}${API_VERSION_URL}/staff/updateOrderStatus/${orderId}`,
         {
           orderStatus,
         },

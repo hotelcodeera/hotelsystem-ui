@@ -46,7 +46,7 @@ export class StaffOrdersComponent implements OnInit {
   id: string = '';
   requestListStatus = false;
   subjectCount = SUBJECTS_COUNT;
-  examId: string = '';
+  orderId: string = '';
   updatingProduct: string = '';
   constructor(
     public httpClient: HttpClient,
@@ -81,8 +81,8 @@ export class StaffOrdersComponent implements OnInit {
       orderId: details.orderId,
       orderStatus: details.orderStatus,
     };
-    const registerStudentDialog = this.dialog.open(UpdateOrderStatusComponent, dialogConfig);
-    registerStudentDialog.afterClosed().subscribe((val: { status: string; data: TransformedOrders }) => {
+    const registerUserDialog = this.dialog.open(UpdateOrderStatusComponent, dialogConfig);
+    registerUserDialog.afterClosed().subscribe((val: { status: string; data: TransformedOrders }) => {
       if (val.status === CANCEL_STATUS) {
         return;
       }

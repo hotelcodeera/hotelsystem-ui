@@ -29,12 +29,9 @@ export class ProductsService {
 
   getAllProductsForStaff(): void {
     this.http
-      .get<{ success: boolean; data: ProductDetails[] }>(
-        `${environment.apiURL}${API_VERSION_URL}/professor/getProducts`,
-        {
-          headers: this.authenticationService.getHeaders(),
-        },
-      )
+      .get<{ success: boolean; data: ProductDetails[] }>(`${environment.apiURL}${API_VERSION_URL}/staff/getProducts`, {
+        headers: this.authenticationService.getHeaders(),
+      })
       .subscribe(
         data => {
           const updatedRes = data.data.map(ele => {
@@ -69,7 +66,7 @@ export class ProductsService {
   createProduct({ name, description, price, waitingTime }: CreateProductRequest) {
     return this.http
       .post<{ success: boolean; data: ProductDetails }>(
-        `${environment.apiURL}${API_VERSION_URL}/professor/addItem`,
+        `${environment.apiURL}${API_VERSION_URL}/staff/addItem`,
         {
           name,
           description,
@@ -91,7 +88,7 @@ export class ProductsService {
   updateStockStatus(productId: string, stockStatus: boolean) {
     return this.http
       .post<{ success: boolean; data: ProductDetails }>(
-        `${environment.apiURL}${API_VERSION_URL}/professor/updateStockStatus/${productId}`,
+        `${environment.apiURL}${API_VERSION_URL}/staff/updateStockStatus/${productId}`,
         {
           stockStatus,
         },

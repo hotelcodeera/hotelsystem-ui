@@ -42,7 +42,7 @@ export class CustomerOrdersComponent implements OnInit {
   id: string = '';
   requestListStatus = false;
   subjectCount = SUBJECTS_COUNT;
-  examId: string = '';
+  orderId: string = '';
   updatingProduct: string = '';
   constructor(public httpClient: HttpClient, private authenticationService: AuthenticationService) {}
 
